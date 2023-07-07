@@ -14,13 +14,14 @@ from flask_mail import Mail, Message
 from dotenv import load_dotenv
 
 
+
 load_dotenv()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI', default='sqlite:///'+os.path.join(basedir,'data.sqlite'))
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
@@ -46,8 +47,8 @@ class Sighting(db.Model):
     project_name = db.Column(db.String, nullable=True)
     location = db.Column(db.String, nullable=True)
     description = db.Column(db.String, nullable=True)
-    start_time = db.Column(db.DateTime, nullable=True)
-    created_at = db.Column(db.DateTime, nullable=True)
+    start_time = db.Column(db.TIMESTAMP, nullable=True)
+    created_at = db.Column(db.TIMESTAMP, nullable=True)
     image = db.Column(db.String, nullable=True)
     approval = db.Column(db.String, nullable=True)
 
