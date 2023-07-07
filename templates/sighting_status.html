@@ -12,7 +12,7 @@
 <!-- List of all Null Sightings -->
 <center>
     {% for sighting in sightings %}
-        {% if sighting.approval == "Null" %}
+        {% if sighting.approval == None %}
             <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <a href="#">
                     <img class="rounded-t-lg aspect-square object-cover" src="{{sighting.image}}" alt="" />
@@ -25,7 +25,7 @@
                         <b>Location: </b> {{sighting.location}}
                         <br>
                         <!-- CONVERTING UTC TO EST -->
-                        <b>Time:</b>{{ sighting.start_time.strftime('%m-%d-%Y at %I:%M%p') }}
+                        <b>Date: </b>{{ sighting.start_time.strftime('%m-%d-%Y at %I:%M%p') }}
                         <br>
                         <br>
                         <b>Description:</b>
