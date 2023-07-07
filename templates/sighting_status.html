@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Null Status Sightings -->
+<div class="py-8 lg:py-16 px-2 mx-auto max-w-screen bg-sky-300">
+    <center><a href="/sightings" class="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-full shadow text-base px-6 py-3.5">Add a New Release</a></center>
+    <br>
+    <br>
+    <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Sightings to be Approved:</h2>
+</div>
+
+<!-- List of all Null Sightings -->
+<center>
+    {% for sighting in sightings %}
+        {% if sighting.approval == "Null" %}
+            <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <a href="#">
+                    <img class="rounded-t-lg aspect-square object-cover" src="{{sighting.image}}" alt="" />
+                </a>
+                <div class="p-5">
+                    <a href="#">
+                        <h4 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">"{{sighting.project_name}}"</a></h4>
+                    </a>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                        <b>Location: </b> {{sighting.location}}
+                        <br>
+                        <!-- CONVERTING UTC TO EST -->
+                        <b>Time:</b>{{ sighting.start_time.strftime('%m-%d-%Y at %I:%M%p') }}
+                        <br>
+                        <br>
+                        <b>Description:</b>
+                        <br>
+                        <i>{{sighting.description}}</i>
+                    </p>
+                </div>
+                <p class="font-normal text-gray-700 dark:text-gray-400 card-footer text-muted">
+                    Uploaded: {{ sighting.created_at.strftime('%m-%d-%Y at %I:%M%p') }}
+                </p>
+            </div>
+            <br>
+        {% endif %}
+    {% endfor %}
+</center>
+
+<!-- Disapproved Sightings -->
+<div class="py-8 lg:py-16 px-2 mx-auto max-w-screen bg-sky-300">
+
+    <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Disapproved Sightings</h2>
+</div>
+
+<!-- List of All Disapproved -->
+<center>
+    {% for sighting in sightings %}
+        {% if sighting.approval == "No" %}
+            <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <a href="#">
+                    <img class="rounded-t-lg aspect-square object-cover" src="{{sighting.image}}" alt="" />
+                </a>
+                <div class="p-5">
+                    <a href="#">
+                        <h4 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">"{{sighting.project_name}}"</a></h4>
+                    </a>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                        <b>Location: </b> {{sighting.location}}
+                        <br>
+                        <!-- CONVERTING UTC TO EST -->
+                        <b>Time:</b>{{ sighting.start_time.strftime('%m-%d-%Y at %I:%M%p') }}
+                        <br>
+                        <br>
+                        <b>Description:</b>
+                        <br>
+                        <i>{{sighting.description}}</i>
+                    </p>
+                </div>
+                <p class="font-normal text-gray-700 dark:text-gray-400 card-footer text-muted">
+                    Uploaded: {{ sighting.created_at.strftime('%m-%d-%Y at %I:%M%p') }}
+                </p>
+            </div>
+            <br>
+        {% endif %}
+    {% endfor %}
+</center>
+
+{% endblock %}
+

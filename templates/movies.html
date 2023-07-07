@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+
+<center>
+    <div class="py-8 lg:py-16 px-2 mx-auto max-w-screen bg-sky-300">
+        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Spotted Filming: Confirmed Upcoming Movies</h2>
+        <br>
+    </div>
+            {% for movie in movies %}
+            <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <a href="#">
+                    <img class="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="" />
+                </a>
+                <div class="p-5">
+                    <a href="#">
+                        <h4 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">"{{movie.title}}"</a></h4>
+                    </a>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                        <b>Director: </b> {{movie.director}}
+                        <br>
+                        <br>
+                        <i>Studio: {{movie.studio}}</i>
+                    </p>
+                </div>
+                <p class="font-normal text-gray-700 dark:text-gray-400 card-footer text-muted">
+                    Release Date: {{movie.release_date}}
+                </p>
+            </div>
+            <br>
+        {% endfor %}
+</center>
+
+
+{% endblock %}
