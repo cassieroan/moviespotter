@@ -173,7 +173,7 @@ def contact():
 
 
 if __name__ == '__main__':
-    app.run(port=os.getenv('PORT', default=9500))
+    app.run(port=os.getenv('PORT', default=9500), debug=True)
 
 
 

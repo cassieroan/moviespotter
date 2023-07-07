@@ -8,36 +8,35 @@
 </div>
 
 <center>
-    <h3>RECENT SIGHTINGS</h3>
-    <br>
 
     {% for sighting in sightings %}
-        <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-            <a href="#">
-                <img class="rounded-t-lg aspect-square object-cover" src="{{sighting.image}}" alt="" />
-            </a>
-            <div class="p-5">
+        {% if sighting.approval == "Yes" %}
+            <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <a href="#">
-                    <h4 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">"{{sighting.project_name}}"</a></h4>
+                    <img class="rounded-t-lg aspect-square object-cover" src="{{sighting.image}}" alt="" />
                 </a>
-                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                    <b>Location: </b> {{sighting.location}}
-                    <br>
-                    <!-- CONVERTING UTC TO EST -->
-                    <b>Time:</b>{{ sighting.start_time.strftime('%m-%d-%Y at %I:%M%p') }}
-                    <br>
-                    <br>
-                    <b>Description:</b>
-                    <br>
-                    <i>{{sighting.description}}</i>
+                <div class="p-5">
+                    <a href="#">
+                        <h4 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">"{{sighting.project_name}}"</a></h4>
+                    </a>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                        <b>Location: </b> {{sighting.location}}
+                        <br>
+                        <!-- CONVERTING UTC TO EST -->
+                        <b>Time:</b>{{ sighting.start_time.strftime('%m-%d-%Y at %I:%M%p') }}
+                        <br>
+                        <br>
+                        <b>Description:</b>
+                        <br>
+                        <i>{{sighting.description}}</i>
+                    </p>
+                </div>
+                <p class="font-normal text-gray-700 dark:text-gray-400 card-footer text-muted">
+                    Uploaded: {{ sighting.created_at.strftime('%m-%d-%Y at %I:%M%p') }}
                 </p>
             </div>
-            <p class="font-normal text-gray-700 dark:text-gray-400 card-footer text-muted">
-                Uploaded: {{ sighting.created_at.strftime('%m-%d-%Y at %I:%M%p') }}
-            </p>
-        </div>
-        <br>
-
+            <br>
+        {% endif %}
     {% endfor %}
 </center>
 
