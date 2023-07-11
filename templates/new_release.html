@@ -22,9 +22,9 @@
 </style>
 
 
-<div class="py-8 lg:py-16 px-2 mx-auto max-w-screen bg-sky-300">
+<div class="py-8 lg:py-8 px-2 mx-auto max-w-screen bg-sky-300">
     <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-white-900 dark:text-white">Add Upcoming Movie</h2>
-    <p class="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Add all the upcoming release details:</p>
+    <p class="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Add all the upcoming release</p>
 </div>
 
 <form method="POST" action="/add_upcoming" class="max-w-lg container mx-auto px-3">
@@ -50,16 +50,15 @@
      <!--Director Section-->
     <div>
         <label for="subject" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Director:</label>
-        <input type="text" id="subject" name="director" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" placeholder="42nd & Bway" required>
-    </div>
-    <div>
-        <label for="subject" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Studio:</label>
-        <input type="text" id="subject" name="studio" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" placeholder="42nd & Bway" required>
+        <input type="text" id="subject" name="director" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" placeholder="Steven Spielberg" required>
     </div>
     <br>
-    
-    
-    <br />
+    <!--Studio Section-->
+    <div>
+        <label for="subject" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Studio:</label>
+        <input type="text" id="subject" name="studio" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" placeholder="Paramount" required>
+    </div>
+    <br>
     <!--Release Date Section-->
     <div class="relative max-w-sm">
         <label for="subject" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Release Date:</label>
@@ -74,15 +73,9 @@
         });
       </script>
       </div>
-      
   
       
     <br>
-     <!--Description Section-->
-    <div>
-        <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description:</label>
-        <textarea id="message" rows="4" name="description" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Leave a comment..."></textarea>
-    </div>
     <br><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"><input type="submit" /></form</br></button>
     <br>
     

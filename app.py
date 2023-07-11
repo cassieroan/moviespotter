@@ -126,6 +126,9 @@ def sighting_status():
     sightings = Sighting.query.all()
     return render_template('sighting_status.html', sightings=sightings)
 
+############################
+##UPCOMING RELEASE SECTION##
+############################
 
 @app.route('/add_upcoming', methods=["POST"])
 def add_upcoming():
@@ -134,20 +137,12 @@ def add_upcoming():
     movie.director = request.form.get('director')
     movie.studio = request.form.get('studio')
     movie.image = request.form.get('image')
-
-    # CONVERTING TIME TO TO UTC
-    date = request.form.get('date')
-    naive_dt = datetime.strptime(f"{date}", '%Y-%m-%d')
-    eastern_tz = timezone('US/Eastern')
-    localized_dt = eastern_tz.localize(naive_dt)
-    utc_dt = localized_dt.astimezone(utc)
-
-    movie.date = utc_dt
+    movie.date = request.form.get('date')
 
     db.session.add(movie)
     db.session.commit()
     
-    return redirect("/")
+    return redirect("/movies")
 
 @app.route('/new_release')
 def new_release():
