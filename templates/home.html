@@ -9,12 +9,17 @@
 
 <center>
 
+    <iframe width="300" height="170" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=41.0895249,-73.8419063&amp;z=14&amp;output=embed">
+
     {% for sighting in sightings %}
         {% if sighting.approval == "Yes" %}
             <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <a href="#">
                     <img class="rounded-t-lg aspect-square object-cover" src="{{sighting.image}}" alt="" />
                 </a>
+
+                </iframe>
+
                 <div class="p-5">
                     <a href="#">
                         <h4 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">"{{sighting.project_name}}"</a></h4>

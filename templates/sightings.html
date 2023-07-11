@@ -46,11 +46,63 @@
         <label for="subject" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Project Name:</label>
         <input type="text" id="subject" name="project_name" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" placeholder="The Wizard of Oz" required>
     </div>
-    <br>
-     <!--Location Section-->
+    <br>      
+
+    <!--Location Section-->
+
     <div>
         <label for="subject" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Location:</label>
-        <input type="text" id="subject" name="location" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" placeholder="42nd & Bway" required>
+
+        <input type="hidden" id="location_lat" name="location_lat" />
+        <input type="hidden" id="location_long" name="location_long" />
+
+        <button type="button" id="get-coordinates-button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+          Get GPS Coordinates
+        </button>
+
+        <div id="gps-success" class="text-green-500	font-bold hidden">
+          ✅ GPS Success!
+        </div>
+
+        <br />
+        <br />
+
+        <button type="button" id="enter-location-manually-button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+          Enter Manually
+        </button>
+
+        <input type="text" id="location_manual_field" name="location" class="hidden p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" placeholder="42nd & Bway">
+
+        <script>
+          document.getElementById('enter-location-manually-button').addEventListener('click', () => {
+            // user clicked "Enter Manually"
+            document.getElementById('enter-location-manually-button').classList.add('hidden');
+            document.getElementById('location_manual_field').classList.remove('hidden');
+
+          });
+
+          if (navigator.geolocation) {
+            document.getElementById('get-coordinates-button').addEventListener('click', () => {
+              // clicked "Get GPS coordinates", but is loading
+
+              navigator.geolocation.getCurrentPosition((position) => {
+                // got gps coordinates successfully
+                document.getElementById('location_lat').value = position.coords.latitude;
+                document.getElementById('location_long').value = position.coords.longitude;
+
+                document.getElementById('gps-success').classList.remove('hidden');
+                document.getElementById('enter-location-manually-button').classList.add('hidden');
+                document.getElementById('get-coordinates-button').classList.add('hidden');
+
+              }, () => {
+                // failed to get GPS coordinates
+              });
+            });
+          } else {
+            // do something if browser doesn't support getting location
+          }
+        </script>
+
     </div>
     <br>
     
@@ -99,10 +151,8 @@
         });
       </script>
       </div>
-      
-  
-      
-    <br>
+
+      <br>
      <!--Description Section-->
     <div>
         <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description:</label>

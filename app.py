@@ -45,12 +45,16 @@ Migrate(app,db)
 class Sighting(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     project_name = db.Column(db.String, nullable=True)
-    location = db.Column(db.String, nullable=True)
     description = db.Column(db.String, nullable=True)
     start_time = db.Column(db.TIMESTAMP, nullable=True)
     created_at = db.Column(db.TIMESTAMP, nullable=True)
     image = db.Column(db.String, nullable=True)
     approval = db.Column(db.String, nullable=True)
+
+    # string location fallback
+    location = db.Column(db.String, nullable=True)
+    location_lat = db.Column(db.Float, nullable=True)
+    location_long = db.Column(db.Float, nullable=True)
 
     movie_id = db.Column(db.Integer, db.ForeignKey('movie.id', name="movie_fk"), nullable=True)
     movie = db.relationship("Movie", foreign_keys=[movie_id], back_populates="sighting")
