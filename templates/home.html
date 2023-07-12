@@ -7,48 +7,51 @@
     <br>
     <center><a href="/sightings" class="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-full shadow text-base px-6 py-3.5">Log a Poster</a></center>
 </div>
-<br>
 
 <!-- Content -->
-<center>
-    {% for sighting in sightings %}
-        {% if sighting.approval == "yes" %}
-            <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
-                    <img class="rounded-t-lg w-full object-cover" src="{{sighting.image}}" alt="" />
-                </a>
-
-                </iframe>
-
-                <div class="p-5">
+<section class="bg-white dark:bg-gray-900">
+    <center>
+    <br>
+        {% for sighting in sightings %}
+            {% if sighting.approval == "yes" %}
+                <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <a href="#">
-                        <h4 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">"{{sighting.project_name}}"</a></h4>
+                        <img class="rounded-t-lg w-full object-cover" src="{{sighting.image}}" alt="" />
                     </a>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                        <b>Location: </b> {{sighting.location}}
-                        <br>
-                        <!-- CONVERTING UTC TO EST -->
-                        <b>Date: </b>{{ sighting.start_time|convert_timezone('UTC', 'US/Eastern')|strftime('%m-%d-%Y at %I:%M%p') }}
-                        <br>
-                        <br>
-                        <b>Description:</b>
-                        <br>
-                        <i>{{sighting.description}}</i>
-                    </p>
-                    <a href="#">
-                        <iframe class="rounded-t-lg w-full object-cover" src="https://maps.google.com/maps?q={{ sighting.location_lat }},{{ sighting.location_long }}&amp;z=14&amp;output=embed"></iframe>
-                    </a>                    
     
                     </iframe>
+    
+                    <div class="p-5">
+                        <a href="#">
+                            <h4 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">"{{sighting.project_name}}"</a></h4>
+                        </a>
+                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                            <b>Location: </b> {{sighting.location}}
+                            <br>
+                            <!-- CONVERTING UTC TO EST -->
+                            <b>Date: </b>{{ sighting.start_time|convert_timezone('UTC', 'US/Eastern')|strftime('%m-%d-%Y at %I:%M%p') }}
+                            <br>
+                            <br>
+                            <b>Description:</b>
+                            <br>
+                            <i>{{sighting.description}}</i>
+                        </p>
+                        <a href="#">
+                            <iframe class="rounded-t-lg w-full object-cover" src="https://maps.google.com/maps?q={{ sighting.location_lat }},{{ sighting.location_long }}&amp;z=14&amp;output=embed"></iframe>
+                        </a>                    
+        
+                        </iframe>
+                    </div>
+                    <p class="font-normal text-gray-700 dark:text-gray-400 card-footer text-muted bg-gray-200">
+                        Uploaded: {{ sighting.created_at|convert_timezone('UTC', 'US/Eastern')|strftime('%m-%d-%Y at %I:%M%p') }}
+                    </p>
                 </div>
-                <p class="font-normal text-gray-700 dark:text-gray-400 card-footer text-muted bg-gray-200">
-                    Uploaded: {{ sighting.created_at|convert_timezone('UTC', 'US/Eastern')|strftime('%m-%d-%Y at %I:%M%p') }}
-                </p>
-            </div>
-            <br>
-        {% endif %}
-    {% endfor %}
-</center>
+            {% endif %}
+        {% endfor %}
+    <br>
+    </center>
+</section>
+
 
 {% endblock %}
 
