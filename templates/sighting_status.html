@@ -39,20 +39,55 @@
                 <hr>
                 <br>
 
-
-                <form method="POST" action="#" class="space-y-8">
-                <div>
-                    <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Actual Future Release:</label>
-                    <input type="text" id="actual_release" name="actual_release" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" placeholder="The Wizard of Oz">
+                <!-- DROPDOWN SECTION -->
+                
+                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Upcoming Releases <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                </svg></button>
+                <!-- Dropdown menu -->
+                <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                        {% for movie in movies %}
+                            <li>
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{movie.title}}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </div>
-                <br>
+
+                  
+                  <!-- Javascript for Dropdown -->
+                  <script>
+                    const dropdownButton = document.getElementById('dropdownDefaultButton');
+                    const dropdownMenu = document.getElementById('dropdown');
+                  
+                    dropdownButton.addEventListener('click', () => {
+                      dropdownMenu.classList.toggle('hidden');
+                    });
+                  
+                    document.addEventListener('click', (event) => {
+                      if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                        dropdownMenu.classList.add('hidden');
+                      }
+                    });
+                  </script>
+                  
+                  <!-- END OF DROPDOWN SECTION -->
                 <div>
-                    <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
-                        Approve
-                    </button>
-                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
-                        Disapprove
-                    </button>
+                    <!-- Approve -->
+                    <form action="/update_sighting" method="POST">
+                        <input type="hidden" name="sighting_id" value="{{ sighting.id }}">
+                        <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full" name="status" value="yes">
+                            Approve
+                        </button>
+                    </form>
+                    
+                    <form action="/update_sighting" method="POST">
+                        <input type="hidden" name="sighting_id" value="{{ sighting.id }}">
+                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full" name="status" value="no">
+                            Disapprove
+                        </button>
+                    </form>
                 </div>
                 <br>
                 
@@ -71,7 +106,7 @@
 <!-- List of All Disapproved -->
 <center>
     {% for sighting in sightings %}
-        {% if sighting.approval == "No" %}
+        {% if sighting.approval == "no" %}
             <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <a href="#">
                     <img class="rounded-t-lg aspect-square object-cover" src="{{sighting.image}}" alt="" />

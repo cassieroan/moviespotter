@@ -124,7 +124,21 @@ def add_sighting():
 @app.route('/sighting_status')
 def sighting_status():
     sightings = Sighting.query.all()
-    return render_template('sighting_status.html', sightings=sightings)
+    movies = Movie.query.all()
+    return render_template('sighting_status.html', sightings=sightings, movies=movies)
+
+@app.route('/update_sighting', methods=["POST"])
+def update_sighting():
+    sighting_id = request.form.get('sighting_id')
+    new_status = request.form.get('status')
+
+    sighting = Sighting.query.get(sighting_id)
+    if sighting:
+        sighting.approval = new_status
+        db.session.commit()
+    
+    return redirect('/')
+
 
 ############################
 ##UPCOMING RELEASE SECTION##
