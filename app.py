@@ -91,6 +91,27 @@ def movies():
 def sightings():
     return render_template('sightings.html')
 
+#######################################################
+##CUSTOM FILTERS FOR TIMEZONE NONSENSE, used in Jinja##
+#######################################################
+
+@app.template_filter('convert_timezone')
+def convert_timezone(value, tz_from, tz_to):
+    # Convert the value from `tz_from` timezone to `tz_to` timezone
+    tz_from = timezone(tz_from)
+    tz_to = timezone(tz_to)
+    localized_dt = tz_from.localize(value)
+    converted_dt = localized_dt.astimezone(tz_to)
+    return converted_dt
+
+@app.template_filter('strftime')
+def strftime_filter(value, format_string):
+    return value.strftime(format_string)
+
+################
+##ADD SIGHTING##
+################
+
 @app.route('/add_sighting', methods=["POST"])
 def add_sighting():
     sighting = Sighting()
@@ -99,7 +120,7 @@ def add_sighting():
     sighting.description = request.form.get('description')
     sighting.image = request.form.get('image')
 
-    # CONVERTING TIME TO TO UTC
+    # CONVERTING TIME TO UTC
     date = request.form.get('date')
     hours = request.form.get('hours')
     minutes = request.form.get('minutes')
@@ -112,8 +133,9 @@ def add_sighting():
 
     sighting.start_time = utc_dt
 
-    #GRABBING TIME FOR CREATED_AT
+    # GRABBING TIME FOR CREATED_AT
     sighting.created_at = datetime.now()
+
 
     db.session.add(sighting)
     db.session.commit()

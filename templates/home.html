@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
 
+<!-- Header -->
 <div class="py-8 lg:py-16 px-2 mx-auto max-w-screen bg-sky-300">
     <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Your one-stop-shop for everything filimg in NYC!</h2>
     <br>
     <center><a href="/sightings" class="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-full shadow text-base px-6 py-3.5">Log a Poster</a></center>
 </div>
+<br>
 
+<!-- Content -->
 <center>
-
-    <!-- <iframe width="300" height="170" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=41.0895249,-73.8419063&amp;z=14&amp;output=embed"> -->
-
     {% for sighting in sightings %}
         {% if sighting.approval == "yes" %}
             <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -28,7 +28,7 @@
                         <b>Location: </b> {{sighting.location}}
                         <br>
                         <!-- CONVERTING UTC TO EST -->
-                        <b>Date: </b>{{ sighting.start_time.strftime('%m-%d-%Y at %I:%M%p') }}
+                        <b>Date: </b>{{ sighting.start_time|convert_timezone('UTC', 'US/Eastern')|strftime('%m-%d-%Y at %I:%M%p') }}
                         <br>
                         <br>
                         <b>Description:</b>
@@ -42,7 +42,7 @@
                     </iframe>
                 </div>
                 <p class="font-normal text-gray-700 dark:text-gray-400 card-footer text-muted bg-gray-200">
-                    Uploaded: {{ sighting.created_at.strftime('%m-%d-%Y at %I:%M%p') }}
+                    Uploaded: {{ sighting.created_at|convert_timezone('UTC', 'US/Eastern')|strftime('%m-%d-%Y at %I:%M%p') }}
                 </p>
             </div>
             <br>
