@@ -143,12 +143,20 @@ def add_sighting():
     return redirect("/")
 
 
+@app.route('/sighting/<int:number>', methods=["GET"])
+def view_sighting(number):
+    sighting = Sighting.query.get_or_404(number)
+    movies = Movie.query.all()
+    return render_template('sighting.html', sighting=sighting, movies=movies, number=sighting.id)
+
+
 @app.route('/sighting_status')
 def sighting_status():
     sightings = Sighting.query.all()
     movies = Movie.query.all()
     return render_template('sighting_status.html', sightings=sightings, movies=movies)
 
+#Updates sighting status to "Yes" or "No" from button click
 @app.route('/update_sighting', methods=["POST"])
 def update_sighting():
     sighting_id = request.form.get('sighting_id')
@@ -159,7 +167,7 @@ def update_sighting():
         sighting.approval = new_status
         db.session.commit()
     
-    return redirect('/')
+    return redirect(url_for('view_sighting', number=sighting.id))
 
 
 ############################

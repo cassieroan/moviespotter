@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{sighting.project_name}}!</title>
+  </head>
+  <body>
+    <a href="{{ url_for('movies') }}">
+      Home
+    </a>
+    <h1>{{sighting.project_name}}</h1>
+    <a href="/sighting/{{sighting.id}}"><button>This is the event</button></a>
+
+    <br><h3>Currently connected to this other legit film: </br>
+    {% for film in movies %}
+        <h3><a href="#">{{film.title}} - {{film.director}}</a></h3>
+    {% endfor %}
+    <br>
+  </body>
+</html>
+
+
+{% endblock %}
