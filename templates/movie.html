@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{movie.title}}!</title>
+  </head>
+  <body>
+    <a href="{{ url_for('movies') }}">
+      Home
+    </a>
+    <h1>{{movie.title}}</h1>
+    <a href="/movie/{{movie.id}}"><button>This is the event</button></a>
+
+    <br><h3>Here are the sightings associated with this upcoming film: </br>
+    {% for sighting in movie.sighting %}
+    <ul>
+        <h3><a href="/sighting/{{sighting.id}}"><b>Project Name:</b> <i>"{{sighting.project_name}}"</i> - <b>Date Spotted:</b> {{sighting.created_at}}</a></h3>
+    </ul>
+        
+    {% endfor %}
+    <br>
+  </body>
+</html>
+
+
+{% endblock %}

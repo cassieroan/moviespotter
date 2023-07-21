@@ -65,8 +65,7 @@ class Movie(db.Model):
     director = db.Column(db.String, nullable=True)
     studio = db.Column(db.String, nullable=True)
     release_date = db.Column(db.String, nullable=True)
-    sighting = db.relationship('Sighting', backref='movie_sighting',
-     uselist=False)
+    sighting = db.relationship('Sighting', backref='movie_sighting')
     image = db.Column(db.String, nullable=True)
 
 
@@ -90,6 +89,14 @@ def movies():
 @app.route('/sightings')
 def sightings():
     return render_template('sightings.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/submission_confirmation')
+def submission_confirmation():
+    return render_template('submission_confirmation.html')
 
 #######################################################
 ##CUSTOM FILTERS FOR TIMEZONE NONSENSE, used in Jinja##
@@ -145,9 +152,10 @@ def add_sighting():
 
 @app.route('/sighting/<int:number>', methods=["GET"])
 def view_sighting(number):
-    sighting = Sighting.query.get_or_404(number)
+    sighting = Sighting.query.get(number)
     movies = Movie.query.all()
     return render_template('sighting.html', sighting=sighting, movies=movies, number=sighting.id)
+
 
 
 @app.route('/sighting_status')
@@ -191,6 +199,13 @@ def add_upcoming():
 @app.route('/new_release')
 def new_release():
     return render_template('new_release.html')
+
+
+@app.route('/movie/<int:number>', methods=["GET"])
+def view_movie(number):
+    movie = Movie.query.get_or_404(number)
+    sightings = Sighting.query.all()
+    return render_template('movie.html', sightings=sightings, movie=movie, number=movie.id)
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():

@@ -13,13 +13,14 @@
     <h1>{{sighting.project_name}}</h1>
     <a href="/sighting/{{sighting.id}}"><button>This is the event</button></a>
 
-    <br><h3>Currently connected to this other legit film: </br>
-    {% for film in movies %}
-        <h3><a href="#">{{film.title}} - {{film.director}}</a></h3>
-    {% endfor %}
+    <br><h3>Currently connected to this other legit film:</h3>
+    <ul>
+      <h3><a href="/sighting/{{sighting.id}}"><b>Upcoming Feature:</b> <i>"{{sighting.movie.title}}"</i> - <b>Director:</b> {{sighting.movie.director}}</a></h3>
+    </ul>
+        
     <br>
   </body>
 </html>
 
-
 {% endblock %}
+
