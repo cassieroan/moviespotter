@@ -57,7 +57,7 @@ class Sighting(db.Model):
     location_long = db.Column(db.Float, nullable=True)
 
     movie_id = db.Column(db.Integer, db.ForeignKey('movie.id', name="movie_fk"), nullable=True)
-    movie = db.relationship("Movie", foreign_keys=[movie_id], back_populates="sighting")
+    movie = db.relationship("Movie", foreign_keys=[movie_id], back_populates="sightings")
 
 class Movie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -65,7 +65,7 @@ class Movie(db.Model):
     director = db.Column(db.String, nullable=True)
     studio = db.Column(db.String, nullable=True)
     release_date = db.Column(db.String, nullable=True)
-    sighting = db.relationship('Sighting', backref='movie_sighting')
+    sightings = db.relationship('Sighting', backref='movie_id')
     image = db.Column(db.String, nullable=True)
 
 
