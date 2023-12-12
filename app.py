@@ -65,7 +65,7 @@ class Movie(db.Model):
     director = db.Column(db.String, nullable=True)
     studio = db.Column(db.String, nullable=True)
     release_date = db.Column(db.String, nullable=True)
-    sightings = db.relationship('Sighting', backref='movie_id')
+    sightings = db.relationship('Sighting', back_populates='movie')
     image = db.Column(db.String, nullable=True)
 
 
@@ -79,24 +79,81 @@ class Movie(db.Model):
 @app.route('/')
 def index():
     sightings = Sighting.query.all()
-    return render_template('home.html', sightings=sightings)
+    return render_template('home.html', associated_movie=sightings)
 
 @app.route('/movies')
 def movies():
     movies = Movie.query.all()
     return render_template('movies.html', movies=movies)
 
-@app.route('/sightings')
-def sightings():
-    return render_template('sightings.html')
 
 @app.route('/about')
 def about():
     return render_template('about.html')
 
-@app.route('/submission_confirmation')
-def submission_confirmation():
-    return render_template('submission_confirmation.html')
+
+@app.route('/submit')
+def submit_get():
+    return render_template('submit.html')
+
+
+@app.route('/submit', methods=["POST"])
+def submit_post():
+    sighting = Sighting()
+    sighting.location = request.form.get('location')
+    sighting.image = request.form.get('image')
+
+    # GRABBING TIME FOR CREATED_AT
+    sighting.created_at = datetime.now()
+
+    db.session.add(sighting)
+    db.session.commit()
+
+    # Get the ID of the newly created poster
+    new_sighting_id = sighting.id
+    
+    return redirect(url_for('submit_by_sighting_id_get', sighting_id=new_sighting_id))
+
+@app.route('/submit/<int:sighting_id>')
+def submit_by_sighting_id_get(sighting_id):
+    # Retrieve the poster from the database using the sighting_id
+    sighting = Sighting.query.get_or_404(sighting_id)
+
+    return render_template('submit_by_sighting_id.html',
+        hour_numbers=range(1, 13),
+        default_hour=6,
+        sighting=sighting
+    )
+
+#Updates submission to include info from submission_form (second step in submitting a poster)
+@app.route('/submit/<int:sighting_id>', methods=["POST"])
+def submit_by_sighting_id_post(sighting_id):
+    sighting = Sighting.query.get_or_404(sighting_id)
+
+    # copy from form submission to database row
+    sighting.project_name = request.form.get('project_name')
+    sighting.description = request.form.get('description')
+
+    # CONVERTING TIME TO UTC
+    date = request.form.get('date')
+    hours = request.form.get('hours')
+    minutes = request.form.get('minutes')
+    ampm = request.form.get('ampm')
+
+    naive_dt = datetime.strptime(f"{date} {hours}:{minutes} {ampm}", '%Y-%m-%d %I:%M %p')
+    eastern_tz = timezone('US/Eastern')
+    localized_dt = eastern_tz.localize(naive_dt)
+    utc_dt = localized_dt.astimezone(utc)
+
+    sighting.start_time = utc_dt
+
+    db.session.commit()
+    return redirect(url_for('submission_confirmation',  sighting_id=sighting_id))
+
+@app.route('/submission_confirmation/<int:sighting_id>', methods=["GET"])
+def submission_confirmation(sighting_id):
+    sighting = Sighting.query.get(sighting_id)
+    return render_template('submission_confirmation.html', sighting=sighting, number=sighting.id)
 
 #######################################################
 ##CUSTOM FILTERS FOR TIMEZONE NONSENSE, used in Jinja##
@@ -118,36 +175,6 @@ def strftime_filter(value, format_string):
 ################
 ##ADD SIGHTING##
 ################
-
-@app.route('/add_sighting', methods=["POST"])
-def add_sighting():
-    sighting = Sighting()
-    sighting.project_name = request.form.get('project_name')
-    sighting.location = request.form.get('location')
-    sighting.description = request.form.get('description')
-    sighting.image = request.form.get('image')
-
-    # CONVERTING TIME TO UTC
-    date = request.form.get('date')
-    hours = request.form.get('hours')
-    minutes = request.form.get('minutes')
-    ampm = request.form.get('ampm')
-
-    naive_dt = datetime.strptime(f"{date} {hours}:{minutes} {ampm}", '%Y-%m-%d %I:%M %p')
-    eastern_tz = timezone('US/Eastern')
-    localized_dt = eastern_tz.localize(naive_dt)
-    utc_dt = localized_dt.astimezone(utc)
-
-    sighting.start_time = utc_dt
-
-    # GRABBING TIME FOR CREATED_AT
-    sighting.created_at = datetime.now()
-
-
-    db.session.add(sighting)
-    db.session.commit()
-    
-    return redirect("/")
 
 
 @app.route('/sighting/<int:number>', methods=["GET"])
@@ -176,6 +203,8 @@ def update_sighting():
         db.session.commit()
     
     return redirect(url_for('view_sighting', number=sighting.id))
+
+
 
 
 ############################

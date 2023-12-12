@@ -1,0 +1,159 @@
+{% extends "base.html" %} {% block content %}
+
+<script type="module">
+  import * as LR from "https://esm.sh/@uploadcare/blocks@0.22.13/web/file-uploader-regular.min.js";
+  LR.registerBlocks(LR);
+</script>
+<style>
+  .my-config {
+    --cfg-pubkey: "db12333b4a5d847f9df1";
+    --cfg-img-only: 1;
+    --cfg-multiple: 0;
+    --cfg-max-local-file-size-bytes: 10485760;
+    --cfg-multiple-max: 1;
+    --cfg-use-cloud-image-editor: 0;
+    --cfg-source-list: "local, camera";
+    --darkmode: 0;
+    --h-accent: 223;
+    --s-accent: 100%;
+    --l-accent: 61%;
+  }
+</style>
+
+<div class="py-8 lg:py-16 px-2 mx-auto max-w-screen bg-sky-300 dark:bg-sky-900">
+  <h2
+    class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white"
+  >
+    What did you see?
+  </h2>
+  <p class="font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">
+    Snap a picture of the poster. We can't wait to see the details!
+  </p>
+</div>
+
+<form method="POST" action="/submit" class="max-w-lg container mx-auto px-3">
+  <br />
+  <label
+    for="subject"
+    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+    >Upload Photo</label
+  >
+  <div>
+    <lr-file-uploader-regular
+      css-src="https://esm.sh/@uploadcare/blocks@0.22.13/web/file-uploader-regular.min.css"
+      ctx-name="my-uploader"
+      class="my-config"
+    >
+    </lr-file-uploader-regular>
+
+    <lr-data-output
+      ctx-name="my-uploader"
+      use-input
+      input-name="image"
+    ></lr-data-output>
+  </div>
+  <br />
+
+  <!--Location Section-->
+
+  <div>
+    <label
+      for="subject"
+      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+    >
+      Location
+    </label>
+
+    <div class="flex flex-row gap-2">
+      <button
+        type="button"
+        id="get-coordinates-button"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+      >
+        Save location (use GPS)
+      </button>
+      <button
+        type="button"
+        id="enter-location-manually-button"
+        class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-blue-700 focus:outline-none bg-white rounded-lg border border-blue-700 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+      >
+        Enter manually
+      </button>
+    </div>
+
+    <input type="hidden" id="location_lat" name="location_lat" />
+    <input type="hidden" id="location_long" name="location_long" />
+
+    <div id="gps-success" class="text-green-500 font-bold hidden">
+      ✅ GPS Success!
+    </div>
+
+    <input
+      type="text"
+      id="location_manual_field"
+      name="location"
+      class="hidden p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
+      placeholder="42nd & Bway"
+    />
+
+    <script>
+      document
+        .getElementById("enter-location-manually-button")
+        .addEventListener("click", () => {
+          // user clicked "Enter Manually"
+          document
+            .getElementById("enter-location-manually-button")
+            .classList.add("hidden");
+          document
+            .getElementById("location_manual_field")
+            .classList.remove("hidden");
+        });
+
+      if (navigator.geolocation) {
+        document
+          .getElementById("get-coordinates-button")
+          .addEventListener("click", () => {
+            // clicked "Get GPS coordinates", but is loading
+
+            navigator.geolocation.getCurrentPosition(
+              (position) => {
+                // got gps coordinates successfully
+                document.getElementById("location_lat").value =
+                  position.coords.latitude;
+                document.getElementById("location_long").value =
+                  position.coords.longitude;
+
+                document
+                  .getElementById("gps-success")
+                  .classList.remove("hidden");
+                document
+                  .getElementById("enter-location-manually-button")
+                  .classList.add("hidden");
+                document
+                  .getElementById("get-coordinates-button")
+                  .classList.add("hidden");
+              },
+              () => {
+                // failed to get GPS coordinates
+              }
+            );
+          });
+      } else {
+        // do something if browser doesn't support getting location
+      }
+    </script>
+  </div>
+
+  <br />
+  <hr class="border-0 h-px bg-gray-300" />
+  <br />
+
+  <button
+    type="submit"
+    class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+  >
+    Next
+  </button>
+</form>
+
+{% endblock %}
