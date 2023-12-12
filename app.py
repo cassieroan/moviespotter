@@ -92,6 +92,11 @@ def about():
     return render_template('about.html')
 
 
+#########################
+## SUBMIT NEW SIGHTING ##
+#########################
+
+
 @app.route('/submit')
 def submit_get():
     return render_template('submit.html')
@@ -153,7 +158,7 @@ def submit_by_sighting_id_post(sighting_id):
 @app.route('/submission_confirmation/<int:sighting_id>', methods=["GET"])
 def submission_confirmation(sighting_id):
     sighting = Sighting.query.get(sighting_id)
-    return render_template('submission_confirmation.html', sighting=sighting, number=sighting.id)
+    return render_template('submission_confirmation.html', sighting=sighting)
 
 #######################################################
 ##CUSTOM FILTERS FOR TIMEZONE NONSENSE, used in Jinja##
