@@ -116,6 +116,13 @@ def submit_post():
 
     # Get the ID of the newly created poster
     new_sighting_id = sighting.id
+
+    msg = Message('**NEW Movie Poster Submission!!**', sender=('Movie Spotter Admin', 'ccrpalmbeach@gmail.com'),
+                recipients=['cassandracroan@gmail.com'])  # Your email address as the recipient
+
+    msg.body = f"A new movie poster has been submitted!\n\nApprove the sighting here:\nhttps://moviespotters.com/sighting_status\n\nView Image Here:\n{sighting.image}"
+
+    mail.send(msg)
     
     return redirect(url_for('submit_by_sighting_id_get', sighting_id=new_sighting_id))
 
