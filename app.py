@@ -79,7 +79,8 @@ class Movie(db.Model):
 @app.route('/')
 def index():
     sightings = Sighting.query.all()
-    return render_template('home.html', associated_movie=sightings)
+    current_date = datetime.utcnow() 
+    return render_template('home.html', sightings=sightings, current_date=current_date)
 
 @app.route('/movies')
 def movies():
@@ -208,10 +209,26 @@ def sighting_status():
 def update_sighting():
     sighting_id = request.form.get('sighting_id')
     new_status = request.form.get('status')
+    new_project_name = request.form.get('project_name')
+    new_location = request.form.get('location')
+    new_date = request.form.get('date')
+    new_description = request.form.get('description')
+
+
+    print(f"Sighting ID: {sighting_id}")
+    print(f"New Status: {new_status}")
+    print(f"New Project Name: {new_project_name}")
+    print(f"New Location: {new_location}")
+    print(f"New Date: {new_date}")
+    print(f"New Description: {new_description}")
 
     sighting = Sighting.query.get(sighting_id)
     if sighting:
         sighting.approval = new_status
+        sighting.project_name = new_project_name
+        sighting.location = new_location
+        sighting.date = new_date
+        sighting.description = new_description
         db.session.commit()
     
     return redirect(url_for('view_sighting', number=sighting.id))

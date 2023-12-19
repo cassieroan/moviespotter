@@ -19,79 +19,96 @@
                     <img class="rounded-t-lg w-full object-cover" src="{{sighting.image}}" alt="" />
                 </a>
                 <div class="p-5">
-                    <a href="#">
-                        <h4 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">"{{sighting.project_name}}"</a></h4>
-                    </a>
+                    <div>
+                        <label for="project_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Project Name:</label>
+                        <input type="text" id="project_name" name="project_name" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" value="{{sighting.project_name}}" required>
+                    </div>
                     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                        <b>Location: </b> {{sighting.location}}
+                        <div>
+                            <label for="location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Location:</label>
+                            <input type="text" id="location" name="location" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" value="{{sighting.location}}" required>
+                        </div>
                         <br>
                         <!-- CONVERTING UTC TO EST -->
-                        <b>Date: </b>{{sighting.start_time|convert_timezone('UTC', 'US/Eastern')|strftime('%m-%d-%Y at %I:%M%p')}}
+                        <div>
+                            <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Date:</label>
+                            <input type="text" id="date" name="date" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" value="{{sighting.start_time|convert_timezone('UTC', 'US/Eastern')|strftime('%m-%d-%Y at %I:%M%p')}}" required>
+                        </div>
                         <br>
-                        <br>
-                        <b>Description:</b>
-                        <br>
-                        <i>{{sighting.description}}</i>
+                        <div>
+                            <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Description:</label>
+                            <textarea id="description" name="description" rows="4" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" required>{{sighting.description}}</textarea>
+                        </div>
+
+                        <!-- New Dropdown Section -->
+
+                        <div class="bg-white p-8 rounded shadow-md">                            
+                                <div class="mb-4">
+                                    <label for="yesno" class="block text-gray-700 text-sm font-bold mb-2">Approve:</label>
+                                    <select id="yesno" name="yesno" class="w-full p-2 border rounded">
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                </div>
+                       
+
+
+
+
+
+
+                        <!-- Old Not Working Dropdown Section -->
+                        <!-- <div>
+                            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800" type="button">Approve <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                            </svg></button>
+                            Dropdown menu -->
+                            <!-- <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                                    <li>
+                                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Yes</a>
+                                      </li>
+                                      <li>
+                                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">No</a>
+                                      </li>
+                                </ul>
+                            </div>
+        
+                            <div>
+                                
+                            </div> -->
+                            
+                            <!-- Javascript for Dropdown -->
+                            <!-- <script>
+                                const dropdownButton = document.getElementById('dropdownDefaultButton');
+                                const dropdownMenu = document.getElementById('dropdown');
+                            
+                                dropdownButton.addEventListener('click', () => {
+                                dropdownMenu.classList.toggle('hidden');
+                                });
+                            
+                                document.addEventListener('click', (event) => {
+                                if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                                    dropdownMenu.classList.add('hidden');
+                                }
+                                });
+                            </script>                        
+                        </div> -->
                     </p>
                     <a href="#">
                         <iframe class="rounded-t-lg w-full object-cover" src="https://maps.google.com/maps?q=41.0895249,-73.8419063&amp;z=14&amp;output=embed"></iframe>
                     </a>
                 </div>
                 <p class="font-normal text-gray-700 dark:text-gray-400 card-footer text-muted bg-gray-200">
-                    Uploaded: {{sighting.start_time|convert_timezone('UTC', 'US/Eastern')|strftime('%m-%d-%Y at %I:%M%p')}}
+                    Uploaded: {{sighting.created_at|convert_timezone('UTC', 'US/Eastern')|strftime('%m-%d-%Y at %I:%M%p')}}
                 </p>
                 <div class="bg-yellow-200">
-                    <!-- THIS IS WHERE IT STARTS -->
-                    <!-- DROPDOWN SECTION -->
-                    <br>
-                    <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Upcoming Releases <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                    </svg></button>
-                    <!-- Dropdown menu -->
-                    <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                            {% for movie in movies %}
-                                <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{movie.title}}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-
-                    <div>
-                        
-                    </div>
-                    
-                    <!-- Javascript for Dropdown -->
-                    <script>
-                        const dropdownButton = document.getElementById('dropdownDefaultButton');
-                        const dropdownMenu = document.getElementById('dropdown');
-                    
-                        dropdownButton.addEventListener('click', () => {
-                        dropdownMenu.classList.toggle('hidden');
-                        });
-                    
-                        document.addEventListener('click', (event) => {
-                        if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                            dropdownMenu.classList.add('hidden');
-                        }
-                        });
-                    </script>
-                    
-                    <!-- END OF DROPDOWN SECTION -->
                     <div style="display: flex; justify-content: center;">
                         <!-- Approve -->
                         <form action="/update_sighting" method="POST" style="margin-right: 10px;>
                             <input type="hidden" name="sighting_id" value="{{ sighting.id }}">
-                            <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full" name="status" value="yes">
-                                Approve
-                            </button>
-                        </form>
-                        <!-- Disapprove -->
-                        <form action="/update_sighting" method="POST">
-                            <input type="hidden" name="sighting_id" value="{{ sighting.id }}">
-                            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full" name="status" value="no">
-                                Disapprove
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" name="status" value="yes">
+                                Submit
                             </button>
                         </form>
                     </div>
