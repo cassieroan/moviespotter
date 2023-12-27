@@ -1,0 +1,31 @@
+{% extends "base.html" %} {% block content %}
+
+<section class="bg-gray-50 dark:bg-gray-900">
+  <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
+    <h2
+      class="text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white"
+    >
+      ⚠️ Looks like you're missing some info!
+    </h2>
+    <br />
+    <p
+      class="mb-4 lg:mb-4 font-light text-center text-gray-600 dark:text-gray-300 sm:text-xl"
+    >
+      Make sure to include both
+      <span class="font-medium">
+        an image of the filming notice & the location!
+      </span>
+    </p>
+    <br />
+    <div class="text-center">
+      <a
+        href="/submit"
+        class="sm:w-full lg:w-auto my-2 border rounded md py-4 px-8 text-center bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-50"
+      >
+        Try again
+      </a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

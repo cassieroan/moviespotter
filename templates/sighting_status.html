@@ -14,151 +14,129 @@
 <center>
     {% for sighting in sightings %}
         {% if sighting.approval == None %}
+        <form action="/update_sighting" method="POST">
+            <div class="max-w-screen-md bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col sm:flex-row m-4 overflow-hidden">
+                    <div class="ccr-GREEN w-1/2">
+                        <div class="ccr-BLUE">
+                            <img class="rounded-tl-lg w-full object-cover" src="{{sighting.image}}" alt="" />
+                        </div>
+                        <div>
+                            {% if sighting.location == Null %}
+                            <div class="ccr-BLUE">
+                                <iframe class="rounded-bl-lg w-full object-cover" src="https://maps.google.com/maps?q=41.0895249,-73.8419063&amp;z=14&amp;output=embed"></iframe>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                        <div class="ccr-BLUE">
+                            <p class="font-normal text-gray-700 dark:text-gray-400 card-footer text-muted bg-gray-200">
+                                Uploaded: {{sighting.created_at|convert_timezone('UTC', 'US/Eastern')|strftime('%m-%d-%Y at %I:%M%p')}}
+                            </p>
+                        </div>
+                        <div class="ccr-BLUE">
+                            {% if sighting.location != None %}
+                            <p class="font-normal text-gray-700 dark:text-gray-400 card-footer text-muted bg-yellow-200">
+                                Location Provided: {{sighting.location}}
+                            </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="ccr-GREEN p-5 w-1/2">
+                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                            <div class="ccr-BLUE">
+                                <label for="project_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Project Name:</label>
+                                <input type="text" id="project_name" name="project_name" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" value="{{sighting.project_name}}" required>
+                            </div>
+                            <div>
+                                {% if sighting.location != None %}
+                                <br>
+                                <div>
+                                    <label for="location_lat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Location Lat:</label>
+                                    <input type="text" id="location_lat" name="location_lat" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" value="{{sighting.location}}" required>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="location_long" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Location Long:</label>
+                                    <input type="text" id="location_long" name="location_long" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" value="{{sighting.location}}" required>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <br>
+                            <!-- CONVERTING UTC TO EST -->
+                            <div>
+                                <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Date:</label>
+                                <input type="text" id="date" name="date" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" 
+                                    value="{% if sighting.start_time != None %}{{sighting.start_time|convert_timezone('UTC', 'US/Eastern')|strftime('%m-%d-%Y at %I:%M%p')}}{% endif %}"
+                                    required
+                                />
+                            </div>
+                            <br>
+                            <div>
+                                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Description:</label>
+                                <textarea id="description" name="description" rows="4" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" required>{{sighting.description}}</textarea>
+                            </div>
+                            <br>
+                             <!-- New Dropdown Section -->
+                                <div class="mb-4">
+                                    <label for="yesno" class="block text-gray-700 text-sm font-bold mb-2">Approve:</label>
+                                    <select id="yesno" name="status" class="w-full p-2 border rounded">
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                </div>
+                            <div>
+                            <input type="hidden" name="sighting_id" value="{{ sighting.id }}">
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                                Submit
+                            </button>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        {% endif %}
+    {% endfor %}
+</center>
+
+<!-- Disapproved Sightings -->
+<div class="py-8 lg:py-16 px-2 mx-auto max-w-screen bg-sky-300">
+    <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Disapproved Sightings:</h2>
+</div>
+<br>
+
+<!-- List of All Disapproved -->
+<center>
+    {% for sighting in sightings %}
+        {% if sighting.approval == "no" %}
             <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <a href="#">
                     <img class="rounded-t-lg w-full object-cover" src="{{sighting.image}}" alt="" />
                 </a>
                 <div class="p-5">
-                    <div>
-                        <label for="project_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Project Name:</label>
-                        <input type="text" id="project_name" name="project_name" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" value="{{sighting.project_name}}" required>
-                    </div>
+                    <a href="#">
+                        <h4 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">"{{sighting.project_name}}"</a></h4>
+                    </a>
                     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                        <div>
-                            <label for="location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Location:</label>
-                            <input type="text" id="location" name="location" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" value="{{sighting.location}}" required>
-                        </div>
+                        <b>Location: </b> {{sighting.location}}
                         <br>
                         <!-- CONVERTING UTC TO EST -->
-                        <div>
-                            <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Date:</label>
-                            <input type="text" id="date" name="date" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" value="{{sighting.start_time|convert_timezone('UTC', 'US/Eastern')|strftime('%m-%d-%Y at %I:%M%p')}}" required>
-                        </div>
+                        <b>Time:</b>{{ sighting.start_time.strftime('%m-%d-%Y at %I:%M%p') }}
                         <br>
-                        <div>
-                            <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Description:</label>
-                            <textarea id="description" name="description" rows="4" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" required>{{sighting.description}}</textarea>
-                        </div>
-
-                        <!-- New Dropdown Section -->
-
-                        <div class="bg-white p-8 rounded shadow-md">                            
-                                <div class="mb-4">
-                                    <label for="yesno" class="block text-gray-700 text-sm font-bold mb-2">Approve:</label>
-                                    <select id="yesno" name="yesno" class="w-full p-2 border rounded">
-                                        <option value="yes">Yes</option>
-                                        <option value="no">No</option>
-                                    </select>
-                                </div>
-                       
-
-
-
-
-
-
-                        <!-- Old Not Working Dropdown Section -->
-                        <!-- <div>
-                            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800" type="button">Approve <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                            </svg></button>
-                            Dropdown menu -->
-                            <!-- <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                                    <li>
-                                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Yes</a>
-                                      </li>
-                                      <li>
-                                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">No</a>
-                                      </li>
-                                </ul>
-                            </div>
-        
-                            <div>
-                                
-                            </div> -->
-                            
-                            <!-- Javascript for Dropdown -->
-                            <!-- <script>
-                                const dropdownButton = document.getElementById('dropdownDefaultButton');
-                                const dropdownMenu = document.getElementById('dropdown');
-                            
-                                dropdownButton.addEventListener('click', () => {
-                                dropdownMenu.classList.toggle('hidden');
-                                });
-                            
-                                document.addEventListener('click', (event) => {
-                                if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                                    dropdownMenu.classList.add('hidden');
-                                }
-                                });
-                            </script>                        
-                        </div> -->
+                        <br>
+                        <b>Description:</b>
+                        <br>
+                        <i>{{sighting.description}}</i>
                     </p>
-                    <a href="#">
-                        <iframe class="rounded-t-lg w-full object-cover" src="https://maps.google.com/maps?q=41.0895249,-73.8419063&amp;z=14&amp;output=embed"></iframe>
-                    </a>
                 </div>
-                <p class="font-normal text-gray-700 dark:text-gray-400 card-footer text-muted bg-gray-200">
-                    Uploaded: {{sighting.created_at|convert_timezone('UTC', 'US/Eastern')|strftime('%m-%d-%Y at %I:%M%p')}}
+                <p class="font-normal text-gray-700 dark:text-gray-400 card-footer text-muted">
+                    Uploaded: {{ sighting.created_at.strftime('%m-%d-%Y at %I:%M%p') }}
                 </p>
-                <div class="bg-yellow-200">
-                    <div style="display: flex; justify-content: center;">
-                        <!-- Approve -->
-                        <form action="/update_sighting" method="POST" style="margin-right: 10px;>
-                            <input type="hidden" name="sighting_id" value="{{ sighting.id }}">
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" name="status" value="yes">
-                                Submit
-                            </button>
-                        </form>
-                    </div>
-                    <br>
-                    </div>
-                </div>
-                <br>
-            {% endif %}
-        {% endfor %}
-    </center>
-
-    <!-- Disapproved Sightings -->
-    <div class="py-8 lg:py-16 px-2 mx-auto max-w-screen bg-sky-300">
-
-        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Disapproved Sightings:</h2>
-    </div>
-    <br>
-
-    <!-- List of All Disapproved -->
-    <center>
-        {% for sighting in sightings %}
-            {% if sighting.approval == "no" %}
-                <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                    <a href="#">
-                        <img class="rounded-t-lg w-full object-cover" src="{{sighting.image}}" alt="" />
-                    </a>
-                    <div class="p-5">
-                        <a href="#">
-                            <h4 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">"{{sighting.project_name}}"</a></h4>
-                        </a>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                            <b>Location: </b> {{sighting.location}}
-                            <br>
-                            <!-- CONVERTING UTC TO EST -->
-                            <b>Time:</b>{{ sighting.start_time.strftime('%m-%d-%Y at %I:%M%p') }}
-                            <br>
-                            <br>
-                            <b>Description:</b>
-                            <br>
-                            <i>{{sighting.description}}</i>
-                        </p>
-                    </div>
-                    <p class="font-normal text-gray-700 dark:text-gray-400 card-footer text-muted">
-                        Uploaded: {{ sighting.created_at.strftime('%m-%d-%Y at %I:%M%p') }}
-                    </p>
-                </div>
-                <br>
+            </div>
+            <br>
         {% endif %}
     {% endfor %}
 </center>
 
 {% endblock %}
+
 

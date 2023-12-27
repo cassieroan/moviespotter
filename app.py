@@ -92,6 +92,20 @@ def movies():
 def about():
     return render_template('about.html')
 
+@app.errorhandler(404)
+def error_404(e):
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def error_500(e):
+    return render_template('500.html'), 500
+
+def convert_to_float_or_none(input_string):
+    try:
+        return float(input_string)
+    except ValueError:
+        return None
+
 
 #########################
 ## SUBMIT NEW SIGHTING ##
@@ -107,10 +121,21 @@ def submit_get():
 def submit_post():
     sighting = Sighting()
     sighting.location = request.form.get('location')
+    sighting.location_lat = convert_to_float_or_none(request.form.get('location_lat'))
+    sighting.location_long = convert_to_float_or_none(request.form.get('location_long'))    
     sighting.image = request.form.get('image')
 
     # GRABBING TIME FOR CREATED_AT
     sighting.created_at = datetime.now()
+
+    if not (
+        sighting.image is not None and (
+            (sighting.location_lat != '' and sighting.location_long != '') or
+            (sighting.location != '')
+        )
+    ):
+        return redirect(url_for('bad_submit'))
+
 
     db.session.add(sighting)
     db.session.commit()
@@ -124,8 +149,27 @@ def submit_post():
     msg.body = f"A new movie poster has been submitted!\n\nApprove the sighting here:\nhttps://moviespotters.com/sighting_status\n\nView Image Here:\n{sighting.image}"
 
     mail.send(msg)
-    
+
     return redirect(url_for('submit_by_sighting_id_get', sighting_id=new_sighting_id))
+
+    # FIRST ATTEMPT
+    # if request.form.get('location_lat') and request.form.get('location_long') and request.form.get('image') != None:
+    #     return redirect(url_for('submit_by_sighting_id_get', sighting_id=new_sighting_id))
+    # elif request.form.get('location') and request.form.get('image') != None:
+    #     return redirect(url_for('submit_by_sighting_id_get', sighting_id=new_sighting_id))
+    # else:
+    #     return redirect(url_for('bad_submit'))
+
+    # SECOND ATTEMPT
+    # if (
+    #     (sighting.location_lat is not None and sighting.location_long is not None and sighting.image is not None and sighting.location_lat != '' and sighting.location_long != '' and sighting.image != '') or
+    #     (sighting.location is not None and sighting.image is not None and sighting.location != '' and sighting.image != '')
+    # ):
+    #     return redirect(url_for('submit_by_sighting_id_get', sighting_id=new_sighting_id))
+    # else:
+    #     return redirect(url_for('bad_submit'))
+
+    # THIRD ATTEMPT
 
 @app.route('/submit/<int:sighting_id>')
 def submit_by_sighting_id_get(sighting_id):
@@ -167,6 +211,10 @@ def submit_by_sighting_id_post(sighting_id):
 def submission_confirmation(sighting_id):
     sighting = Sighting.query.get(sighting_id)
     return render_template('submission_confirmation.html', sighting=sighting)
+
+@app.route('/bad_submit')
+def bad_submit():
+    return render_template('bad_submit.html')
 
 #######################################################
 ##CUSTOM FILTERS FOR TIMEZONE NONSENSE, used in Jinja##
@@ -210,23 +258,17 @@ def update_sighting():
     sighting_id = request.form.get('sighting_id')
     new_status = request.form.get('status')
     new_project_name = request.form.get('project_name')
-    new_location = request.form.get('location')
+    new_location_lat = request.form.get('location_lat')
+    new_location_long = request.form.get('location_long')
     new_date = request.form.get('date')
     new_description = request.form.get('description')
-
-
-    print(f"Sighting ID: {sighting_id}")
-    print(f"New Status: {new_status}")
-    print(f"New Project Name: {new_project_name}")
-    print(f"New Location: {new_location}")
-    print(f"New Date: {new_date}")
-    print(f"New Description: {new_description}")
 
     sighting = Sighting.query.get(sighting_id)
     if sighting:
         sighting.approval = new_status
         sighting.project_name = new_project_name
-        sighting.location = new_location
+        sighting.location_lat = new_location_lat
+        sighting.location_long = new_location_long
         sighting.date = new_date
         sighting.description = new_description
         db.session.commit()
