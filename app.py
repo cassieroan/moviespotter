@@ -12,7 +12,8 @@ from datetime import datetime
 from pytz import timezone, utc
 from flask_mail import Mail, Message
 from dotenv import load_dotenv
-
+from flask_login import UserMixin, LoginManager, login_user, logout_user, current_user
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 load_dotenv()
@@ -69,8 +70,56 @@ class Movie(db.Model):
     image = db.Column(db.String, nullable=True)
 
 
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String, nullable=True)
+    password_hash = db.Column(db.String)
+    is_admin = db.Column(db.Boolean, default=False)
 
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
+
+
+@app.route('/login')
+def admin_login_get():
+    return render_template('admin_login_form.html')
     
+@app.route('/auth/login', methods=["POST"])
+def admin_login_post():
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    user = User.query.filter_by(email=email).first()
+    if user is None:
+        # create an account on the fly!
+        new_user = User()
+        new_user.email = email
+        new_user.password_hash = generate_password_hash(password, method='sha256')
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        login_user(new_user)
+        return redirect('/')
+
+    elif check_password_hash(user.password_hash, password):
+        login_user(user, remember=True)
+        return redirect('/')
+
+    else:
+        # user exists and password does not match
+        # TODO show error message with "flash"
+        return redirect('/login')
+    
+
+@app.route('/auth/logout', methods=["POST"])
+def logout():
+    logout_user()
+    return redirect('/login')
 
 ##########
 ##ROUTES##
