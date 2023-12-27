@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, url_for, request
+from flask import Flask, redirect, render_template, url_for, request, abort
 import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -75,6 +75,11 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String, nullable=True)
     password_hash = db.Column(db.String)
     is_admin = db.Column(db.Boolean, default=False)
+
+
+##########
+## AUTH ##
+##########
 
 
 login_manager = LoginManager()
@@ -195,7 +200,7 @@ def submit_post():
     msg = Message('**NEW Movie Poster Submission!!**', sender=('Movie Spotter Admin', 'ccrpalmbeach@gmail.com'),
                 recipients=['cassandracroan@gmail.com'])  # Your email address as the recipient
 
-    msg.body = f"A new movie poster has been submitted!\n\nApprove the sighting here:\nhttps://moviespotters.com/sighting_status\n\nView Image Here:\n{sighting.image}"
+    msg.body = f"A new movie poster has been submitted!\n\nApprove the sighting here:\nhttps://moviespotters.com/approvals\n\nView Image Here:\n{sighting.image}"
 
     mail.send(msg)
 
@@ -295,11 +300,14 @@ def view_sighting(number):
 
 
 
-@app.route('/sighting_status')
-def sighting_status():
+@app.route('/approvals')
+def approvals():
+    if not (current_user.is_authenticated and current_user.is_admin):
+        return abort(404)
+
     sightings = Sighting.query.all()
     movies = Movie.query.all()
-    return render_template('sighting_status.html', sightings=sightings, movies=movies)
+    return render_template('approvals.html', sightings=sightings, movies=movies)
 
 #Updates sighting status to "Yes" or "No" from button click
 @app.route('/update_sighting', methods=["POST"])
