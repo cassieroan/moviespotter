@@ -8,7 +8,7 @@ from wtforms.validators import DataRequired, Email, EqualTo
 from wtforms import ValidationError
 import os
 from time import sleep
-from datetime import datetime
+from datetime import datetime, time
 from pytz import timezone, utc
 from flask_mail import Mail, Message
 from dotenv import load_dotenv
@@ -47,6 +47,8 @@ class Sighting(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     project_name = db.Column(db.String, nullable=True)
     description = db.Column(db.String, nullable=True)
+    start_date = db.Column(db.Date, nullable=True)
+    end_date = db.Column(db.Date, nullable=True)
     start_time = db.Column(db.TIMESTAMP, nullable=True)
     created_at = db.Column(db.TIMESTAMP, nullable=True)
     image = db.Column(db.String, nullable=True)
@@ -246,17 +248,22 @@ def submit_by_sighting_id_post(sighting_id):
     sighting.description = request.form.get('description')
 
     # CONVERTING TIME TO UTC
-    date = request.form.get('date')
-    hours = request.form.get('hours')
-    minutes = request.form.get('minutes')
+    start_date = request.form.get('start_date')
+    end_date = request.form.get('end_date')
+
+    hours = int(request.form.get('hours'))
+    minutes = int(request.form.get('minutes'))
     ampm = request.form.get('ampm')
 
-    naive_dt = datetime.strptime(f"{date} {hours}:{minutes} {ampm}", '%Y-%m-%d %I:%M %p')
+    naive_dt = datetime.strptime(f"{hours}:{minutes} {ampm}", '%I:%M %p')
     eastern_tz = timezone('US/Eastern')
     localized_dt = eastern_tz.localize(naive_dt)
     utc_dt = localized_dt.astimezone(utc)
 
+    sighting.start_date = start_date
+    sighting.end_date = end_date
     sighting.start_time = utc_dt
+
 
     db.session.commit()
     return redirect(url_for('submission_confirmation',  sighting_id=sighting_id))
@@ -312,12 +319,17 @@ def approvals():
 #Updates sighting status to "Yes" or "No" from button click
 @app.route('/update_sighting', methods=["POST"])
 def update_sighting():
+    if not (current_user.is_authenticated and current_user.is_admin):
+        return abort(404)
+
     sighting_id = request.form.get('sighting_id')
     new_status = request.form.get('status')
     new_project_name = request.form.get('project_name')
     new_location_lat = request.form.get('location_lat')
     new_location_long = request.form.get('location_long')
-    new_date = request.form.get('date')
+    new_time = request.form.get('start_time')
+    new_start_date = request.form.get('start_date')
+    new_end_date = request.form.get('end_date')
     new_description = request.form.get('description')
 
     sighting = Sighting.query.get(sighting_id)
@@ -326,7 +338,10 @@ def update_sighting():
         sighting.project_name = new_project_name
         sighting.location_lat = new_location_lat
         sighting.location_long = new_location_long
-        sighting.date = new_date
+        sighting.start_time = new_time
+        sighting.start_date = new_start_date
+        sighting.end_date = new_end_time
+
         sighting.description = new_description
         db.session.commit()
     

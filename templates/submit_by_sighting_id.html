@@ -25,16 +25,32 @@
   
     
     <!--Date Spotted Section-->
-    <label for="datepicker" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-      Shoot date & time
-    </label>
     <div class="flex flex-row gap-2 items-center">
-      <div>
+      <div class="flex flex-col">
+        <label for="datepicker" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+          Start date
+        </label>
         <div class="relative max-w-sm">
           <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
               <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
           </div>
-          <input datepicker type="text" id="datepicker" name="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 flatpickr">
+          <input datepicker type="text" id="datepicker" name="start_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 flatpickr">
+          <script>
+              flatpickr(".flatpickr", {
+              });
+          </script>
+        </div>
+      </div>
+
+      <div class="flex flex-col">
+        <label for="datepicker" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+          End date
+        </label>
+        <div class="relative max-w-sm">
+          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+          </div>
+          <input datepicker type="text" id="datepicker" name="end_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 flatpickr">
           <script>
               flatpickr(".flatpickr", {
               });
@@ -43,26 +59,31 @@
       </div>
 
       <!-- time component -->
-      <div class="p-2.5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-        <div class="flex">
-          <select name="hours" class="bg-transparent appearance-none outline-none">
-            {% for hour_number in hour_numbers %}
-            <option value="{{hour_number}}"
-              {% if hour_number == default_hour %}
-              selected
-              {% endif %}
-            >{{hour_number}}</option>
-            {% endfor %}
-          </select>
-          <span class="mr-1">:</span>
-          <select name="minutes" class="bg-transparent appearance-none outline-none mr-2">
-            <option value="0">00</option>
-            <option value="30">30</option>
-          </select>
-          <select name="ampm" class="bg-transparent appearance-none outline-none">
-            <option value="am">AM</option>
-            <option value="pm">PM</option>
-          </select>
+      <div class="flex flex-col">
+        <label for="datepicker" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+          Shoot time
+        </label>
+        <div class="p-2.5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <div class="flex">
+            <select name="hours" class="bg-transparent appearance-none outline-none">
+              {% for hour_number in hour_numbers %}
+              <option value="{{hour_number}}"
+                {% if hour_number == default_hour %}
+                selected
+                {% endif %}
+              >{{hour_number}}</option>
+              {% endfor %}
+            </select>
+            <span class="mr-1">:</span>
+            <select name="minutes" class="bg-transparent appearance-none outline-none mr-2">
+              <option value="0">00</option>
+              <option value="30">30</option>
+            </select>
+            <select name="ampm" class="bg-transparent appearance-none outline-none">
+              <option value="am">AM</option>
+              <option value="pm">PM</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>
