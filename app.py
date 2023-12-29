@@ -14,6 +14,8 @@ from flask_mail import Mail, Message
 from dotenv import load_dotenv
 from flask_login import UserMixin, LoginManager, login_user, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+import LogRocket     
+
 
 
 load_dotenv()
