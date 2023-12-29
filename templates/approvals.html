@@ -42,19 +42,19 @@
                     </div>
                     <div class="ccr-GREEN p-5 w-1/2">
                             <div class="ccr-BLUE">
-                                <label for="project_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Project Name:</label>
+                                <label for="project_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Project Name</label>
                                 <input type="text" id="project_name" name="project_name" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" value="{{sighting.project_name}}" required>
                             </div>
                             <br>
                             <div class="flex flex-row gap-2 items-center">
                                 {% if sighting.location != None %}
                                 <div>
-                                    <label for="location_lat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Location Lat:</label>
+                                    <label for="location_lat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Location Lat</label>
                                     <input type="text" id="location_lat" name="location_lat" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" value="{{sighting.location_lat}}" required>
                                 </div>
                                 <br>
                                 <div>
-                                    <label for="location_long" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Location Long:</label>
+                                    <label for="location_long" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Location Long</label>
                                     <input type="text" id="location_long" name="location_long" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" value="{{sighting.location_long}}" required>
                                 </div>
                                 {% endif %}
@@ -63,7 +63,7 @@
                             <!-- CONVERTING UTC TO EST -->
                             <div class="flex felx-row gap-2 items-center">
                                 <div>
-                                    <label for="start_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Start Date:</label>
+                                    <label for="start_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Start Date</label>
                                     <input type="text" id="start_date" name="start_date" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" 
                                         value="{% if sighting.start_date != None %}{{sighting.start_date}}{% endif %}"
                                         required
@@ -71,7 +71,7 @@
                                 </div>
                                 <br>
                                 <div>
-                                    <label for="end_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">End Date:</label>
+                                    <label for="end_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">End Date</label>
                                     <input type="text" id="end_date" name="end_date" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" 
                                         value="{% if sighting.end_date != None %}{{sighting.end_date}}{% endif %}"
                                         required
@@ -80,7 +80,7 @@
                             </div>
                             <br>
                             <div>
-                                <label for="start_time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Start Time:</label>
+                                <label for="start_time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Start Time</label>
                                 <input type="text" id="start_time" name="start_time" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" 
                                     value="{% if sighting.start_time != None %}{{sighting.start_time|convert_timezone('UTC', 'US/Eastern')|strftime('%I:%M%p')}}{% endif %}"
                                     required
@@ -88,13 +88,13 @@
                             </div>
                             <br>
                             <div>
-                                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Description:</label>
+                                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Description</label>
                                 <textarea id="description" name="description" rows="4" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" required>{{sighting.description}}</textarea>
                             </div>
                             <br>
                              <!-- New Dropdown Section -->
                                 <div class="mb-4">
-                                    <label for="yesno" class="block text-gray-700 text-sm font-bold mb-2">Approve:</label>
+                                    <label for="yesno" class="block text-gray-700 text-sm font-bold mb-2">Approve</label>
                                     <select id="yesno" name="status" class="w-full p-2 border rounded">
                                         <option value="yes">Yes</option>
                                         <option value="no">No</option>
