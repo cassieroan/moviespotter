@@ -15,14 +15,14 @@
         {% if sighting.approval == None %}
         <form action="/update_sighting" method="POST">
             <div class="max-w-screen-md bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col sm:flex-row m-4 overflow-hidden">
-                    <div class="ccr-GREEN w-1/2">
+                    <div class="ccr-GREEN md:w-1/2">
                         <div class="ccr-BLUE">
                             <img class="rounded-tl-lg w-full object-cover" src="{{sighting.image}}" alt="" />
                         </div>
                         <div>
-                            {% if sighting.location == Null %}
+                            {% if sighting.location == "" %}
                             <div class="ccr-BLUE">
-                                <iframe class="rounded-bl-lg w-full object-cover" src="https://maps.google.com/maps?q=41.0895249,-73.8419063&amp;z=14&amp;output=embed"></iframe>
+                                <iframe class="rounded-bl-lg w-full object-cover" src="https://maps.google.com/maps?q={{ sighting.location_lat }},{{ sighting.location_long }}&amp;z=14&amp;output=embed"></iframe>
                             </div>
                             {% endif %}
 
@@ -33,14 +33,14 @@
                             </p>
                         </div>
                         <div class="ccr-BLUE">
-                            {% if sighting.location != None %}
+                            {% if sighting.location != "" %}
                             <p class="font-normal text-gray-700 dark:text-gray-400 card-footer text-muted bg-yellow-200">
                                 Location Provided: {{sighting.location}}
                             </p>
                             {% endif %}
                         </div>
                     </div>
-                    <div class="ccr-GREEN p-5 w-1/2">
+                    <div class="ccr-GREEN p-5 md:w-1/2">
                             <div class="ccr-BLUE">
                                 <label for="project_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Project Name</label>
                                 <input type="text" id="project_name" name="project_name" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" value="{{sighting.project_name}}" required>
@@ -82,7 +82,7 @@
                             <div>
                                 <label for="start_time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Start Time</label>
                                 <input type="text" id="start_time" name="start_time" class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" 
-                                    value="{% if sighting.start_time != None %}{{sighting.start_time|convert_timezone('UTC', 'US/Eastern')|strftime('%I:%M%p')}}{% endif %}"
+                                    value="{% if sighting.start_time != None %}{{sighting.start_time|strftime('%I:%M%p')}}{% endif %}"
                                     required
                                 />
                             </div>

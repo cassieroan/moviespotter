@@ -8,7 +8,7 @@ from wtforms.validators import DataRequired, Email, EqualTo
 from wtforms import ValidationError
 import os
 from time import sleep
-from datetime import datetime, time
+from datetime import datetime, time, date
 from pytz import timezone, utc
 from flask_mail import Mail, Message
 from dotenv import load_dotenv
@@ -40,6 +40,10 @@ mail = Mail(app)
 db = SQLAlchemy(app)
 Migrate(app,db)
 
+# we're going to keep things local to New York, so this is
+# useful
+nyc_tz = timezone('US/Eastern')
+
 ###########
 ##CLASSES##
 ###########
@@ -50,7 +54,7 @@ class Sighting(db.Model):
     description = db.Column(db.String, nullable=True)
     start_date = db.Column(db.Date, nullable=True)
     end_date = db.Column(db.Date, nullable=True)
-    start_time = db.Column(db.TIMESTAMP, nullable=True)
+    start_time = db.Column(db.Time, nullable=True)
     created_at = db.Column(db.TIMESTAMP, nullable=True)
     image = db.Column(db.String, nullable=True)
     approval = db.Column(db.String, nullable=True)
@@ -136,7 +140,7 @@ def logout():
 @app.route('/')
 def index():
     sightings = Sighting.query.all()
-    current_date = datetime.utcnow() 
+    current_date = datetime.now(nyc_tz).date()
     return render_template('home.html', sightings=sightings, current_date=current_date)
 
 @app.route('/movies')
@@ -256,14 +260,12 @@ def submit_by_sighting_id_post(sighting_id):
     minutes = int(request.form.get('minutes'))
     ampm = request.form.get('ampm')
 
-    naive_dt = datetime.strptime(f"{hours}:{minutes} {ampm}", '%I:%M %p')
-    eastern_tz = timezone('US/Eastern')
-    localized_dt = eastern_tz.localize(naive_dt)
-    utc_dt = localized_dt.astimezone(utc)
+    # Create a time object
+    time_obj = datetime.strptime(f"{hours}:{minutes} {ampm}", "%I:%M %p").time()
 
     sighting.start_date = start_date
     sighting.end_date = end_date
-    sighting.start_time = utc_dt
+    sighting.start_time = time_obj
 
 
     db.session.commit()
@@ -341,7 +343,7 @@ def update_sighting():
         sighting.location_long = new_location_long
         sighting.start_time = new_time
         sighting.start_date = new_start_date
-        sighting.end_date = new_end_time
+        sighting.end_date = new_end_date
 
         sighting.description = new_description
         db.session.commit()

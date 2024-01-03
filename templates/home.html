@@ -16,7 +16,7 @@
         Current Sightings
     </h3>
         {% for sighting in sightings %}
-            {% if sighting.approval == "yes" and sighting.start_time > current_date %}
+            {% if sighting.approval == "yes" and sighting.start_date >= current_date %}
                 <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-700 dark:border-gray-600">
                     <a href="sighting/{{sighting.id}}">
                         <img class="rounded-t-lg w-full object-cover" src="{{sighting.image}}" alt="" />
@@ -32,7 +32,7 @@
                             <b>Location: </b> {{sighting.location}}
                             <br>
                             <!-- CONVERTING UTC TO EST -->
-                            <b>Date: </b>{{ sighting.start_time|convert_timezone('UTC', 'US/Eastern')|strftime('%m-%d-%Y at %I:%M%p') }}
+                            <b>Date: </b>{{sighting.start_date|strftime('%A, %-m/%-d/%Y')}} at {{ sighting.start_time|strftime('%-I:%M%p') }}
                             <br>
                             <br>
                             <b>Description:</b>
@@ -46,7 +46,7 @@
                         </iframe>
                     </div>
                     <p class="font-normal text-gray-700 dark:text-gray-400 card-footer text-muted bg-gray-200">
-                        Uploaded: {{ sighting.created_at|convert_timezone('UTC', 'US/Eastern')|strftime('%m-%d-%Y at %I:%M%p') }}
+                        Uploaded: {{ sighting.created_at|strftime('%m-%d-%Y at %I:%M%p') }}
                     </p>
                 </div>
                 <br>
@@ -59,7 +59,7 @@
         Past Sightings
     </h3>
     {% for sighting in sightings %}
-            {% if sighting.approval == "yes" and sighting.start_time < current_date %}
+            {% if sighting.approval == "yes" and sighting.start_date < current_date %}
                 <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-700 dark:border-gray-600">
                     <a href="sighting/{{sighting.id}}">
                         <img class="rounded-t-lg w-full object-cover" src="{{sighting.image}}" alt="" />
@@ -75,7 +75,7 @@
                             <b>Location: </b> {{sighting.location}}
                             <br>
                             <!-- CONVERTING UTC TO EST -->
-                            <b>Date: </b>{{ sighting.start_time|convert_timezone('UTC', 'US/Eastern')|strftime('%m-%d-%Y at %I:%M%p') }}
+                            <b>Date: </b>{{sighting.start_date|strftime('%A, %-m/%-d/%Y')}} at {{ sighting.start_time|strftime('%-I:%M%p') }}
                             <br>
                             <br>
                             <b>Description:</b>
@@ -89,7 +89,7 @@
                         </iframe>
                     </div>
                     <p class="font-normal text-gray-700 dark:text-gray-400 card-footer text-muted bg-gray-200">
-                        Uploaded: {{ sighting.created_at|convert_timezone('UTC', 'US/Eastern')|strftime('%m-%d-%Y at %I:%M%p') }}
+                        Uploaded: {{ sighting.created_at|strftime('%m-%d-%Y at %I:%M%p') }}
                     </p>
                 </div>
                 <br>
