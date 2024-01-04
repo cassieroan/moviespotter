@@ -1,103 +1,146 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 
 <!-- Header -->
-<div class="py-8 lg:py-16 px-2 mx-auto max-w-screen bg-sky-300">
-    <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Your one-stop-shop for everything filming in NYC!</h2>
-    <br>
-    <center><a href="/submit" class="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-full shadow text-base px-6 py-3.5">Log a Poster</a></center>
+<div class="bg-gray-900 px-6 py-14">
+  <div
+    class="container max-w-4xl mx-auto flex flex-col-reverse sm:flex-row gap-6 items-center"
+  >
+    <div class="xl:col-end-1 xl:row-start-1">
+      <h1
+        class="text-xl font-bold tracking-tight text-sky-200 sm:text-4xl mb-4"
+      >
+        Have you seen these posters?
+      </h1>
+      <p class="leading-8 text-white">
+        They indicate a movie filming on the block within the next few days.
+        They’re easy to overlook, but we’ve been hunting them for 5 years and
+        are delighted when we find one. It’s like a NYC sponsored Pokemon Go!
+      </p>
+      <div class="mt-10 flex items-center gap-x-6">
+        <a
+          href="/submit"
+          class="rounded-md bg-sky-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-sky-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        >
+          Get started
+        </a>
+        <a href="/about" class="text-sm font-semibold leading-6 text-white">
+          Learn more <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+
+    <img
+      src="https://ucarecdn.com/ab144410-dc67-4946-b16b-51bd17166ed0/"
+      alt=""
+      class="rounded object-cover flex-1 sm:w-1/2"
+    />
+  </div>
 </div>
 
 <!-- Content -->
-<section class="bg-white dark:bg-gray-900">
-    <center>
-    <br>
-    <h3 class="mb-4 mt-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">
-        Current Sightings
+<section class="">
+  <center>
+    <br />
+    <h3
+      class="mb-4 mt-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white"
+    >
+      Current Sightings
     </h3>
-        {% for sighting in sightings %}
-            {% if sighting.approval == "yes" and sighting.start_date >= current_date %}
-                <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-700 dark:border-gray-600">
-                    <a href="sighting/{{sighting.id}}">
-                        <img class="rounded-t-lg w-full object-cover" src="{{sighting.image}}" alt="" />
-                    </a>
-    
-                    </iframe>
-    
-                    <div class="p-5">
-                        <a href="sighting/{{sighting.id}}">
-                            <h4 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="sighting/{{sighting.id}}">"{{sighting.project_name}}"</a></h4>
-                        </a>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                            <b>Location: </b> {{sighting.location}}
-                            <br>
-                            <!-- CONVERTING UTC TO EST -->
-                            <b>Date: </b>{{sighting.start_date|strftime('%A, %-m/%-d/%Y')}} at {{ sighting.start_time|strftime('%-I:%M%p') }}
-                            <br>
-                            <br>
-                            <b>Description:</b>
-                            <br>
-                            <i>{{sighting.description}}</i>
-                        </p>
-                        <a href="sighting/{{sighting.id}}">
-                            <iframe class="rounded-t-lg w-full object-cover" src="https://maps.google.com/maps?q={{ sighting.location_lat }},{{ sighting.location_long }}&amp;z=14&amp;output=embed"></iframe>
-                        </a>                    
-        
-                        </iframe>
-                    </div>
-                    <p class="font-normal text-gray-700 dark:text-gray-400 card-footer text-muted bg-gray-200">
-                        Uploaded: {{ sighting.created_at|strftime('%m-%d-%Y at %I:%M%p') }}
-                    </p>
-                </div>
-                <br>
-            {% endif %}
-        {% endfor %}
-    <br>
-    <hr>
+    {% for sighting in sightings %} {% if sighting.approval == "yes" and
+    sighting.start_date >= current_date %}
+    <div
+      class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-700 dark:border-gray-600"
+    >
+      <a href="sighting/{{sighting.id}}">
+        <img
+          class="rounded-t-lg w-full object-cover"
+          src="{{sighting.image}}"
+          alt=""
+        />
+      </a>
 
-    <h3 class="mb-4 mt-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">
-        Past Sightings
+      <div class="p-5">
+        <a href="sighting/{{sighting.id}}">
+          <h4
+            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+          >
+            <a href="sighting/{{sighting.id}}">"{{sighting.project_name}}"</a>
+          </h4>
+        </a>
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+          <!-- CONVERTING UTC TO EST -->
+          <b></b>{{sighting.start_date|strftime('%A, %-m/%-d/%Y')}} at {{
+          sighting.start_time|strftime('%-I:%M%p') }}
+          <br />
+          <i>{{sighting.description}}</i>
+        </p>
+        <a href="sighting/{{sighting.id}}">
+          <iframe
+            class="rounded-t-lg w-full object-cover"
+            src="https://maps.google.com/maps?q={{ sighting.location_lat }},{{ sighting.location_long }}&amp;z=14&amp;output=embed"
+          ></iframe>
+        </a>
+      </div>
+      <p
+        class="font-normal text-gray-700 dark:text-gray-400 card-footer text-muted bg-gray-200"
+      >
+        Uploaded: {{ sighting.created_at|strftime('%m-%d-%Y at %I:%M%p') }}
+      </p>
+    </div>
+    <br />
+    {% endif %} {% endfor %}
+    <br />
+    <hr />
+
+    <h3
+      class="mb-4 mt-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white"
+    >
+      Past Sightings
     </h3>
-    {% for sighting in sightings %}
-            {% if sighting.approval == "yes" and sighting.start_date < current_date %}
-                <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-700 dark:border-gray-600">
-                    <a href="sighting/{{sighting.id}}">
-                        <img class="rounded-t-lg w-full object-cover" src="{{sighting.image}}" alt="" />
-                    </a>
+    {% for sighting in sightings %} {% if sighting.approval == "yes" and
+    sighting.start_date < current_date %}
+    <div
+      class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-700 dark:border-gray-600"
+    >
+      <a href="sighting/{{sighting.id}}">
+        <img
+          class="rounded-t-lg w-full object-cover"
+          src="{{sighting.image}}"
+          alt=""
+        />
+      </a>
 
-                    </iframe>
-
-                    <div class="p-5">
-                        <a href="sighting/{{sighting.id}}">
-                            <h4 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="sighting/{{sighting.id}}">"{{sighting.project_name}}"</a></h4>
-                        </a>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                            <b>Location: </b> {{sighting.location}}
-                            <br>
-                            <!-- CONVERTING UTC TO EST -->
-                            <b>Date: </b>{{sighting.start_date|strftime('%A, %-m/%-d/%Y')}} at {{ sighting.start_time|strftime('%-I:%M%p') }}
-                            <br>
-                            <br>
-                            <b>Description:</b>
-                            <br>
-                            <i>{{sighting.description}}</i>
-                        </p>
-                        <a href="sighting/{{sighting.id}}">
-                            <iframe class="rounded-t-lg w-full object-cover" src="https://maps.google.com/maps?q={{ sighting.location_lat }},{{ sighting.location_long }}&amp;z=14&amp;output=embed"></iframe>
-                        </a>                    
-
-                        </iframe>
-                    </div>
-                    <p class="font-normal text-gray-700 dark:text-gray-400 card-footer text-muted bg-gray-200">
-                        Uploaded: {{ sighting.created_at|strftime('%m-%d-%Y at %I:%M%p') }}
-                    </p>
-                </div>
-                <br>
-            {% endif %}
-    {% endfor %}
-    </center>
+      <div class="p-5">
+        <a href="sighting/{{sighting.id}}">
+          <h4
+            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+          >
+            <a href="sighting/{{sighting.id}}">"{{sighting.project_name}}"</a>
+          </h4>
+        </a>
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+          <!-- CONVERTING UTC TO EST -->
+          {{sighting.start_date|strftime('%A, %-m/%-d/%Y')}} at {{
+          sighting.start_time|strftime('%-I:%M%p') }}
+          <br />
+          <i>{{sighting.description}}</i>
+        </p>
+        <a href="sighting/{{sighting.id}}">
+          <iframe
+            class="rounded-t-lg w-full object-cover"
+            src="https://maps.google.com/maps?q={{ sighting.location_lat }},{{ sighting.location_long }}&amp;z=14&amp;output=embed"
+          ></iframe>
+        </a>
+      </div>
+      <p
+        class="font-normal text-gray-700 dark:text-gray-400 card-footer text-muted bg-gray-200"
+      >
+        Uploaded: {{ sighting.created_at|strftime('%m-%d-%Y at %I:%M%p') }}
+      </p>
+    </div>
+    <br />
+    {% endif %} {% endfor %}
+  </center>
 </section>
 
-
 {% endblock %}
-
