@@ -22,13 +22,14 @@
                         <div>
                             {% if sighting.location == "" %}
                             <div class="ccr-BLUE">
-                                <iframe class="rounded-bl-lg w-full object-cover" src="https://maps.google.com/maps?q={{ sighting.location_lat }},{{ sighting.location_long }}&amp;z=14&amp;output=embed"></iframe>
+                                <iframe class=" w-full object-cover" src="https://maps.google.com/maps?q={{ sighting.location_lat }},{{ sighting.location_long }}&amp;z=14&amp;output=embed"></iframe>
                             </div>
                             {% endif %}
 
                         </div>
                         <div class="ccr-BLUE">
-                            <p class="font-normal text-gray-700 dark:text-gray-400 card-footer text-muted bg-gray-200">
+                            <p class="font-normal rounded-b-lg dark:text-gray-400 card-footer text-muted dark:text-gray-700 bg-gray-200 dark:bg-gray-400"
+                            >
                                 Uploaded: {{sighting.created_at|convert_timezone('UTC', 'US/Eastern')|strftime('%m-%d-%Y at %I:%M%p')}}
                             </p>
                         </div>
