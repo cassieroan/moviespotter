@@ -1,3 +1,10 @@
 {
-  "start_url": "https://moviespotters.com/submit"
+  "name" : "Movie Spotters",
+  "short_name" : "MovieSpotters",
+  "display" : "standalone",
+  "theme_color" : "111827",
+  "start_url": "https://moviespotters.com/submit",
+  "background_color" : "7dd3fc",
+  "orientation" : "portrait-primary"
+
 }
