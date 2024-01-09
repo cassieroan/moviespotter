@@ -26,14 +26,17 @@ current_user.is_authenticated %}
 <form
   action="/auth/login"
   method="POST"
-  class="max-w-md mx-auto my-8 p-4 bg-white dark:bg-slate-500 rounded shadow"
+  class="max-w-md mx-auto my-8 p-4 bg-white dark:bg-slate-800 rounded shadow"
 >
   <h2 class="font-medium text-center mb-4 text-slate-900 dark:text-gray-200">
     Sign In
   </h2>
 
   <div class="my-4">
-    <label for="email" class="text-sm font-semibold text-slate 800">
+    <label
+      for="email"
+      class="text-sm font-semibold text-slate-800 dark:text-gray-200"
+    >
       Email address
     </label>
     <input
@@ -45,7 +48,10 @@ current_user.is_authenticated %}
   </div>
 
   <div class="my-4">
-    <label for="password" class="text-sm font-semibold text-slate 800">
+    <label
+      for="password"
+      class="text-sm font-semibold text-slate-800 dark:text-gray-200"
+    >
       Password
     </label>
     <input
