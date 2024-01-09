@@ -141,7 +141,9 @@ def logout():
 def index():
     sightings = Sighting.query.all()
     current_date = datetime.now(nyc_tz).date()
-    return render_template('home.html', sightings=sightings, current_date=current_date)
+    upcoming_sightings = Sighting.query.filter(Sighting.approval == "yes", Sighting.start_date >= current_date).all()
+    past_sightings = Sighting.query.filter(Sighting.approval == "yes", Sighting.start_date < current_date).all()
+    return render_template('home.html', sightings=sightings, current_date=current_date, upcoming_sightings=upcoming_sightings, past_sightings=past_sightings)
 
 @app.route('/movies')
 def movies():

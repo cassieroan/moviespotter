@@ -44,10 +44,15 @@
     <h3
       class="mb-4 mt-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white"
     >
-      Current Sightings
+      Upcoming Shoots
     </h3>
-    {% for sighting in sightings %} {% if sighting.approval == "yes" and
-    sighting.start_date >= current_date %}
+    {% if upcoming_sightings|length == 0 %}
+    <div>
+      <p class="text-center text-gray-500 dark:text-gray-400">
+        No upcoming shoots. The hunt is on!
+      </p>
+    </div>
+    {% endif %} {% for sighting in upcoming_sightings %}
     <div
       class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-700 dark:border-gray-600"
     >
@@ -69,10 +74,14 @@
         </a>
         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
           <!-- CONVERTING UTC TO EST -->
-          <b></b>{{sighting.start_date|strftime('%A, %-m/%-d/%Y')}} at {{
-          sighting.start_time|strftime('%-I:%M%p') }}
+          <b class="text-sky-500"
+            >{{sighting.start_date|strftime('%A, %-m/%-d/%Y')}} at {{
+            sighting.start_time|strftime('%-I:%M%p') }}</b
+          >
           <br />
-          <i>{{sighting.description}}</i>
+          <i class="text-gray-600 dark:text-gray-300"
+            >{{sighting.description}}</i
+          >
         </p>
         <a href="sighting/{{sighting.id}}">
           <iframe
@@ -88,17 +97,16 @@
       </p>
     </div>
     <br />
-    {% endif %} {% endfor %}
+    {% endfor %}
     <br />
     <hr />
 
     <h3
       class="mb-4 mt-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white"
     >
-      Past Sightings
+      Past Shoots
     </h3>
-    {% for sighting in sightings %} {% if sighting.approval == "yes" and
-    sighting.start_date < current_date %}
+    {% for sighting in past_sightings %}
     <div
       class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-700 dark:border-gray-600"
     >
@@ -120,10 +128,14 @@
         </a>
         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
           <!-- CONVERTING UTC TO EST -->
-          {{sighting.start_date|strftime('%A, %-m/%-d/%Y')}} at {{
-          sighting.start_time|strftime('%-I:%M%p') }}
+          <b class="text-sky-500"
+            >{{sighting.start_date|strftime('%A, %-m/%-d/%Y')}} at {{
+            sighting.start_time|strftime('%-I:%M%p') }}</b
+          >
           <br />
-          <i>{{sighting.description}}</i>
+          <i class="text-gray-600 dark:text-gray-300"
+            >{{sighting.description}}</i
+          >
         </p>
         <a href="sighting/{{sighting.id}}">
           <iframe
@@ -139,7 +151,7 @@
       </p>
     </div>
     <br />
-    {% endif %} {% endfor %}
+    {% endfor %}
   </center>
 </section>
 
