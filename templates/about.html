@@ -82,137 +82,155 @@
         </div>
         <div id="default-tab-content">
           <div
-            class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800 mb-4 lg:mb-4 font-light text-left text-gray-600 dark:text-gray-300 sm:text-xl"
-            id="safari"
+          class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800 mb-4 lg:mb-4 font-light text-left text-gray-600 dark:text-gray-300 sm:text-xl flex flex-col sm:flex-row gap-6 items-center"
+          id="safari"
             role="tabpanel"
             aria-labelledby="safari-tab"
           >
-            <p>
-              1. Tap the
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-6 h-6 inline relative bottom-1"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15m0-3-3-3m0 0-3 3m3-3V15"
-                />
-              </svg>
-              button in the middle of the menu bar at the bottom of your screen.
-            </p>
-
-            <p>
-              2. Scroll down the list of options, then tap “Add to Home Screen
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-plus-square inline relative bottom-0.5"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"
-                />
-                <path
-                  d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"
-                />
-              </svg>
-              ”
-            </p>
-            <p>
-              3. Once you’re on the “Add to Home Screen” page, click the “Add”
-              button on the top right of the screen.
-            </p>
-            <p>And you’re done— it’s as simple as that! 🚀</p>
+            <div class="pr-5">
+              <p>
+                1. Tap the
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6 inline relative bottom-1"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15m0-3-3-3m0 0-3 3m3-3V15"
+                  />
+                </svg>
+                button in the middle of the menu bar at the bottom of your screen.
+              </p>
+  
+              <p>
+                2. Scroll down the list of options, then tap “Add to Home Screen
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-plus-square inline relative bottom-0.5"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"
+                  />
+                  <path
+                    d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"
+                  />
+                </svg>
+                ”
+              </p>
+              <p>
+                3. Once you’re on the “Add to Home Screen” page, click the “Add”
+                button on the top right of the screen.
+              </p>
+              <p>And you’re done— it’s as simple as that! 🚀</p>
+            </div>
+            <div>
+              <img src="{{url_for('static', filename='Safari.gif')}}" class=" w-72 rounded-lg" />
+            </div>
+            
           </div>
           <div
-            class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800 mb-4 lg:mb-4 font-light text-left text-gray-600 dark:text-gray-300 sm:text-xl"
+            class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800 mb-4 lg:mb-4 font-light text-left text-gray-600 dark:text-gray-300 sm:text-xl flex flex-col sm:flex-row gap-6 items-center"
             id="iPhoneChrome"
             role="tabpanel"
             aria-labelledby="iPhoneChrome-tab"
           >
-            <p>
-              1. Tap the
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-6 h-6 inline relative bottom-1"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15m0-3-3-3m0 0-3 3m3-3V15"
-                />
-              </svg>
-              button in the upper right corner of the address bar at the top of
-              your screen.
-            </p>
+            <div class="pr-5">
+              <p>
+                1. Tap the
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6 inline relative bottom-1"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15m0-3-3-3m0 0-3 3m3-3V15"
+                  />
+                </svg>
+                button in the upper right corner of the address bar at the top
+                of your screen.
+              </p>
 
-            <p>
-              2. Scroll down the list of options, then tap “Add to Home Screen
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-plus-square inline relative bottom-0.5"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"
-                />
-                <path
-                  d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"
-                />
-              </svg>
-              ”
-            </p>
-            <p>
-              3. Once you’re on the “Add to Home Screen” page, click the “Add”
-              button on the top right of the screen.
-            </p>
-            <p>And you’re done— it’s as simple as that! 🚀</p>
+              <p>
+                2. Scroll down the list of options, then tap “Add to Home Screen
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-plus-square inline relative bottom-0.5"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"
+                  />
+                  <path
+                    d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"
+                  />
+                </svg>
+                ”
+              </p>
+              <p>
+                3. Once you’re on the “Add to Home Screen” page, click the “Add”
+                button on the top right of the screen.
+              </p>
+              <p>And you’re done— it’s as simple as that! 🚀</p>
+            </div>
+            <div>
+              <img src="{{url_for('static', filename='iPhone_Chrome.gif')}}" class=" w-72 rounded-lg" />
+            </div>
           </div>
-          <div
-            class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800 mb-4 lg:mb-4 font-light text-left text-gray-600 dark:text-gray-300 sm:text-xl"
-            id="AndroidChrome"
-            role="tabpanel"
-            aria-labelledby="AndroidChrome-tab"
-          >
-            <p>
-              1. Tap the
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-6 h-6 inline relative bottom-0.5"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z"
-                />
-              </svg>
-
-              button in the upper right corner of the address bar at the top of
-              your screen.
-            </p>
-
-            <p>
-              2. Scroll down the list of options, then tap “Add to Home Screen.”
-            </p>
-            <p>And you’re done— it’s as simple as that! 🚀</p>
+            <div
+            class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800 mb-4 lg:mb-4 font-light text-left text-gray-600 dark:text-gray-300 sm:text-xl flex flex-col sm:flex-row gap-6 items-center"
+              id="AndroidChrome"
+              role="tabpanel"
+              aria-labelledby="AndroidChrome-tab"
+            >
+              <div class="pr-5">
+                <p>
+                  1. Tap the
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-6 h-6 inline relative bottom-0.5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z"
+                    />
+                  </svg>
+  
+                  button in the upper right corner of the address bar at the top
+                  of your screen.
+                </p>
+  
+                <p>
+                  2. Scroll down the list of options, then tap “Add to Home
+                  Screen.”
+                </p>
+                <p>And you’re done— it’s as simple as that! 🚀</p>
+              </div>
+              <div>
+                <img src="{{url_for('static', filename='Android_Chrome.gif')}}" class=" w-64 rounded-lg" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
