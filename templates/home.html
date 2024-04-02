@@ -21,7 +21,7 @@
           href="/submit"
           class="rounded-md bg-sky-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-sky-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
-          Log a sighting
+          Log a Shoot
         </a>
         <a href="/about" class="text-sm font-semibold leading-6 text-white">
           Learn more <span aria-hidden="true">→</span>
@@ -101,57 +101,14 @@
     <br />
     <hr />
 
-    <h3
-      class="mb-4 mt-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white"
+    <h2
+      class="mb-2 mt-4 text-xl tracking-tight font-bold text-center text-gray-900 dark:text-white"
     >
-      Past Shoots
-    </h3>
-    {% for sighting in past_sightings %}
-    <div
-      class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-700 dark:border-gray-600"
-    >
-      <a href="sighting/{{sighting.id}}">
-        <img
-          class="rounded-t-lg w-full object-cover"
-          src="{{sighting.image}}"
-          alt=""
-        />
-      </a>
-
-      <div class="p-5">
-        <a href="sighting/{{sighting.id}}">
-          <h4
-            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-          >
-            <a href="sighting/{{sighting.id}}">"{{sighting.project_name}}"</a>
-          </h4>
-        </a>
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-          <!-- CONVERTING UTC TO EST -->
-          <b class="text-sky-500"
-            >{{sighting.start_date|strftime('%A, %-m/%-d/%Y')}} at {{
-            sighting.start_time|strftime('%-I:%M%p') }}</b
-          >
-          <br />
-          <i class="text-gray-600 dark:text-gray-300"
-            >{{sighting.description}}</i
-          >
-        </p>
-        <a href="sighting/{{sighting.id}}">
-          <iframe
-            class="rounded-t-lg w-full object-cover"
-            src="https://maps.google.com/maps?q={{ sighting.location_lat }},{{ sighting.location_long }}&amp;z=14&amp;output=embed"
-          ></iframe>
-        </a>
-      </div>
-      <p
-        class="font-normal rounded-b-lg dark:text-gray-400 card-footer text-muted dark:text-gray-700 bg-gray-200 dark:bg-gray-400"
+      <a href="/past_shoots" class="text-blue-600 dark:text-blue-400"
+        >View Past Shoots</a
       >
-        Uploaded: {{ sighting.created_at|strftime('%m-%d-%Y at %I:%M%p') }}
-      </p>
-    </div>
-    <br />
-    {% endfor %}
+    </h2>
+    {% for sighting in past_sightings %} {% endfor %}
   </center>
 </section>
 

@@ -145,6 +145,13 @@ def index():
     past_sightings = Sighting.query.filter(Sighting.approval == "yes", Sighting.start_date < current_date).all()
     return render_template('home.html', sightings=sightings, current_date=current_date, upcoming_sightings=upcoming_sightings, past_sightings=past_sightings)
 
+@app.route('/past_shoots')
+def past_shoots():
+    sightings = Sighting.query.all()
+    current_date = datetime.now(nyc_tz).date()
+    past_sightings = Sighting.query.filter(Sighting.approval == "yes", Sighting.start_date < current_date).all()
+    return render_template('past_shoots.html', sightings=sightings, current_date=current_date, past_sightings=past_sightings)
+
 @app.route('/movies')
 def movies():
     movies = Movie.query.all()
