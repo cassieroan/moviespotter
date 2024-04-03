@@ -42,6 +42,11 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.css"
     />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      src="{{url_for('static', filename='MovieSpotters Logo.jpg')}}"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NYC Movie Poster Sightings</title>
   </head>
@@ -54,9 +59,9 @@
         >
           <a href="/" class="flex items-center">
             <img
-              src="https://flowbite.com/docs/images/logo.svg"
-              class="h-8 mr-3"
-              alt="Flowbite Logo"
+              src="{{url_for('static', filename='MovieSpotters Logo.jpg')}}"
+              class="h-16 mr-3"
+              alt="MovieSpotters Logo"
             />
             <span class="self-center text-2xl font-semibold whitespace-nowrap"
               >MovieSpotters</span

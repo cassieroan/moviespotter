@@ -1,22 +1,29 @@
 {% extends "base.html" %} {% block content %}
 
 <!-- Content -->
-<section class="bg-slate-100 dark:bg-gray-900 flex justify-center">
-  <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
+<div class="flex flex-col justify-items-center justify-center">
+  <div>
     <h2
-      class="mb-6 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white"
+      class="mb-6 mt-6 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white"
     >
       Past Shoots
     </h2>
-    <!-- <p>
+  </div>
+
+  <div>
+    <p
+      class="mb-6 tracking-tight text-xl font-light text-center text-gray-900 dark:text-white"
+    >
       Lights, camera, archive! Discover some snaps from our curation of past
       shoots. Log yours
       <a href="/submit" class="text-blue-500 dark:text-blue-400"> here.</a>
-    </p> -->
+    </p>
+  </div>
 
+  <div class="mx-auto">
     {% for sighting in past_sightings %}
     <div
-      class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-700 dark:border-gray-600"
+      class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-700 dark:border-gray-600 text-center"
     >
       <a href="sighting/{{sighting.id}}">
         <img
@@ -35,7 +42,7 @@
           </h4>
         </a>
         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-          <!-- CONVERTING UTC TO EST -->
+          CONVERTING UTC TO EST
           <b class="text-sky-500"
             >{{sighting.start_date|strftime('%A, %-m/%-d/%Y')}} at {{
             sighting.start_time|strftime('%-I:%M%p') }}</b
@@ -61,6 +68,70 @@
     <br />
     {% endfor %}
   </div>
-</section>
+</div>
+
+<!-- <section class="bg-slate-100 dark:bg-gray-900 flex justify-center">
+  <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
+    <div>
+      <h2
+        class="mb-6 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white"
+      >
+        Past Shoots
+      </h2>
+      <p>
+        Lights, camera, archive! Discover some snaps from our curation of past
+        shoots. Log yours
+        <a href="/submit" class="text-blue-500 dark:text-blue-400"> here.</a>
+      </p>
+    </div>
+
+    {% for sighting in past_sightings %}
+    <div
+      class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-700 dark:border-gray-600"
+    >
+      <a href="sighting/{{sighting.id}}">
+        <img
+          class="rounded-t-lg w-full object-cover"
+          src="{{sighting.image}}"
+          alt=""
+        />
+      </a>
+
+      <div class="p-5">
+        <a href="sighting/{{sighting.id}}">
+          <h4
+            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+          >
+            <a href="sighting/{{sighting.id}}">"{{sighting.project_name}}"</a>
+          </h4>
+        </a>
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+          CONVERTING UTC TO EST
+          <b class="text-sky-500"
+            >{{sighting.start_date|strftime('%A, %-m/%-d/%Y')}} at {{
+            sighting.start_time|strftime('%-I:%M%p') }}</b
+          >
+          <br />
+          <i class="text-gray-600 dark:text-gray-300"
+            >{{sighting.description}}</i
+          >
+        </p>
+        <a href="sighting/{{sighting.id}}">
+          <iframe
+            class="rounded-t-lg w-full object-cover"
+            src="https://maps.google.com/maps?q={{ sighting.location_lat }},{{ sighting.location_long }}&amp;z=14&amp;output=embed"
+          ></iframe>
+        </a>
+      </div>
+      <p
+        class="font-normal rounded-b-lg dark:text-gray-400 card-footer text-muted dark:text-gray-700 bg-gray-200 dark:bg-gray-400"
+      >
+        Uploaded: {{ sighting.created_at|strftime('%m-%d-%Y at %I:%M%p') }}
+      </p>
+    </div>
+    <br />
+    {% endfor %}
+  </div>
+</section> -->
 
 {% endblock %}
