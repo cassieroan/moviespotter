@@ -33,6 +33,7 @@
       src="https://ucarecdn.com/ab144410-dc67-4946-b16b-51bd17166ed0/"
       alt=""
       class="rounded object-cover flex-1 w-full sm:w-1/2"
+      loading="lazy"
     />
   </div>
 </div>
@@ -61,6 +62,7 @@
           class="rounded-t-lg w-full object-cover"
           src="{{sighting.image}}"
           alt=""
+          loading="lazy"
         />
       </a>
 
@@ -73,7 +75,7 @@
           </h4>
         </a>
         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-          <!-- CONVERTING UTC TO EST -->
+          <!-- CONVERTING UTC TO ET -->
           <b class="text-sky-500"
             >{{sighting.start_date|strftime('%A, %-m/%-d/%Y')}} at {{
             sighting.start_time|strftime('%-I:%M%p') }}</b
@@ -93,7 +95,8 @@
       <p
         class="font-normal rounded-b-lg dark:text-gray-400 card-footer text-muted dark:text-gray-700 bg-gray-200 dark:bg-gray-400"
       >
-        Uploaded: {{ sighting.created_at|strftime('%m-%d-%Y at %I:%M%p') }}
+        Uploaded: {{sighting.created_at|convert_timezone('UTC',
+        'US/Eastern')|strftime('%m-%d-%Y at %I:%M%p')}}
       </p>
     </div>
     <br />
@@ -108,7 +111,6 @@
         >View Past Shoots</a
       >
     </h2>
-    {% for sighting in past_sightings %} {% endfor %}
   </center>
 </section>
 
