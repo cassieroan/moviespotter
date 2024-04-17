@@ -219,7 +219,10 @@ def submit_post():
 
     mail.send(msg)
 
-    return redirect(url_for('submit_by_sighting_id_get', sighting_id=new_sighting_id))
+    return redirect(url_for('submission_confirmation'))
+
+    #THIS WAS FOR ROUTING TO OTHER INFORMATION FILL OUT PAGE
+    # return redirect(url_for('submit_by_sighting_id_get', sighting_id=new_sighting_id))
 
     # FIRST ATTEMPT
     # if request.form.get('location_lat') and request.form.get('location_long') and request.form.get('image') != None:
@@ -279,10 +282,9 @@ def submit_by_sighting_id_post(sighting_id):
     db.session.commit()
     return redirect(url_for('submission_confirmation',  sighting_id=sighting_id))
 
-@app.route('/submission_confirmation/<int:sighting_id>', methods=["GET"])
-def submission_confirmation(sighting_id):
-    sighting = Sighting.query.get(sighting_id)
-    return render_template('submission_confirmation.html', sighting=sighting)
+@app.route('/submission_confirmation', methods=["GET"])
+def submission_confirmation():
+    return render_template('submission_confirmation.html')
 
 @app.route('/bad_submit')
 def bad_submit():

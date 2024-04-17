@@ -57,7 +57,8 @@
     <div
       class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-700 dark:border-gray-600"
     >
-      <a href="sighting/{{sighting.id}}">
+      <!-- REACTIVATE LINK WHEN YOU'VE BUILT OUT SIGHTING DETAILS -->
+      <!-- <a href="sighting/{{sighting.id}}"> -->
         <img
           class="rounded-t-lg w-full object-cover"
           src="{{sighting.image}}"
@@ -67,11 +68,14 @@
       </a>
 
       <div class="p-5">
-        <a href="sighting/{{sighting.id}}">
+        <!-- REACTIVATE LINK WHEN YOU'VE BUILT OUT SIGHTING DETAILS -->
+        <!-- <a href="sighting/{{sighting.id}}"> -->
           <h4
             class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
           >
-            <a href="sighting/{{sighting.id}}">"{{sighting.project_name}}"</a>
+            "{{sighting.project_name}}"
+            <!-- REACTIVATE LINK WHEN YOU'VE BUILT OUT SIGHTING DETAILS -->
+            <!-- <a href="sighting/{{sighting.id}}">"{{sighting.project_name}}"</a> -->
           </h4>
         </a>
         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
@@ -85,7 +89,8 @@
             >{{sighting.description}}</i
           >
         </p>
-        <a href="sighting/{{sighting.id}}">
+        <!-- REACTIVATE LINK WHEN YOU'VE BUILT OUT SIGHTING DETAILS -->
+        <!-- <a href="sighting/{{sighting.id}}"> -->
           <iframe
             class="rounded-t-lg w-full object-cover"
             src="https://maps.google.com/maps?q={{ sighting.location_lat }},{{ sighting.location_long }}&amp;z=14&amp;output=embed"

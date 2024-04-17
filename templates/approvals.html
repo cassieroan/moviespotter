@@ -115,14 +115,14 @@
     {% endfor %}
 </center>
 
-<!-- Disapproved Sightings -->
-<div class="py-8 lg:py-16 px-2 mx-auto max-w-screen bg-sky-300">
+<!-- Disapproved Sightings DELETED FROM PAGE -->
+<!-- <div class="py-8 lg:py-16 px-2 mx-auto max-w-screen bg-sky-300">
     <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Disapproved Sightings:</h2>
 </div>
-<br>
+<br> -->
 
 <!-- List of All Disapproved -->
-<center>
+<!-- <center>
     {% for sighting in sightings %}
         {% if sighting.approval == "no" %}
             <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -136,7 +136,7 @@
                     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
                         <b>Location: </b> {{sighting.location}}
                         <br>
-                        <!-- CONVERTING UTC TO EST -->
+                        CONVERTING UTC TO EST
                         <b>Time:</b>
                         {% if sighting.start_time %}
                             {{ sighting.start_time.strftime('%m-%d-%Y at %I:%M%p') }}
@@ -155,7 +155,7 @@
             <br>
         {% endif %}
     {% endfor %}
-</center>
+</center> -->
 
 {% endblock %}
 
