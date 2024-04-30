@@ -14,6 +14,8 @@ from flask_mail import Mail, Message
 from dotenv import load_dotenv
 from flask_login import UserMixin, LoginManager, login_user, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy import asc
+
 
 
 
@@ -141,7 +143,7 @@ def logout():
 def index():
     sightings = Sighting.query.all()
     current_date = datetime.now(nyc_tz).date()
-    upcoming_sightings = Sighting.query.filter(Sighting.approval == "yes", Sighting.start_date >= current_date).all()
+    upcoming_sightings = Sighting.query.filter(Sighting.approval == "yes", Sighting.start_date >= current_date).order_by(asc(Sighting.start_date)).all()
     return render_template('home.html', sightings=sightings, current_date=current_date, upcoming_sightings=upcoming_sightings)
 
 @app.route('/past_shoots')
