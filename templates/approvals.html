@@ -17,7 +17,7 @@
             <div class="max-w-screen-md bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col sm:flex-row m-4 overflow-hidden">
                     <div class="ccr-GREEN md:w-1/2">
                         <div class="ccr-BLUE">
-                            <img class="rounded-tl-lg w-full object-cover" src="{{sighting.image}}" alt="" />
+                            <img class="rounded-tl-lg w-full object-cover" src="{{sighting.image}}/-/resize/800x/" alt="" />
                         </div>
                         <div>
                             {% if sighting.location == "" %}
@@ -127,7 +127,7 @@
         {% if sighting.approval == "no" %}
             <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <a href="#">
-                    <img class="rounded-t-lg w-full object-cover" src="{{sighting.image}}" alt="" />
+                    <img class="rounded-t-lg w-full object-cover" src="{{sighting.image}}/-/resize/800x/" alt="" />
                 </a>
                 <div class="p-5">
                     <a href="#">
